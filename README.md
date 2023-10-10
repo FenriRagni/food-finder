@@ -1,1 +1,1 @@
-# super-team-project
+# Food Finder app
