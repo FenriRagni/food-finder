@@ -12,7 +12,7 @@ var requestURL = "https://api.edamam.com/api/recipes/v2?type=public&q="+ "italia
                 var recipeItemUl = $(recipeIdDocument).append("<ul></ul>"); 
                 recipeItemUl.append("<li>" + data.hits[i].recipe.cuisineType + "</li>")
                 recipeItemUl.append("<li>" + data.hits[i].recipe.calories + " calories</li>")
-                recipeItemUl.append('<li><a href = "placeholder&q=' + recipeId + '"> Details</a></li>')
+                recipeItemUl.append('<li><a href = "/food-finder/recipe_results.html?q=' + recipeId + '"> Details</a></li>')
                 recipeItemUl.append("<img src=" + data.hits[i].recipe.images.SMALL.url + ">")
             }
         });
