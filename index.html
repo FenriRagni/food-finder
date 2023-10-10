@@ -15,13 +15,18 @@
             <button>Home </button>
             <button> About Us </button>
             <button> Contact </button>
-            <form>
-                <input type="text">
-                <button>Search</button>
-            </form>
         </nav>
     </header>
 
+    <main>
+        <div class="is-flex is-justify-content-center">
+            <form class="is-flex is-flex-direction-row ">
+                <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
+                <input type="text" id="query-location" class="input mx-3" placeholder="Location">
+                <button type="button" id="button-search" class="button is-primary">Search</button>
+            </form>
+        </div>
+    </main>
     <div>
         <div>
             <h2>Top Recipes</h2>
@@ -39,5 +44,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./assets/script.js"></script>
+    <script src="./assets/js/google-places.js"></script>
 </body>
 </html>
