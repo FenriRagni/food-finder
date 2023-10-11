@@ -1,6 +1,10 @@
+$(document).ready(function(){   
+    var search = $("#search");
+    var button = $("button");
+    var query = "";
+
 /// Base API request to get recipe data 
-function fetchSpoonData() {
-    var requestURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=bc252eb72b7f48ba812d2420ce79224d&q=" + "italian";
+var requestURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=bc252eb72b7f48ba812d2420ce79224d&q=" + "italian";
     fetch(requestURL)
         .then(function (response) {
             return response.json();
@@ -13,4 +17,16 @@ function fetchSpoonData() {
             }
         }
     );
-}
+
+    query = search.val();
+
+
+
+    button.on("click", function(event){
+        event.preventDefault();
+        query = search.val();
+        search.val("");
+    })
+
+
+});
