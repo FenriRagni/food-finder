@@ -38,25 +38,27 @@ async function handleUpdateAutocomplete() {
 
 
 async function fetchGooglePlaces() {
+    // console.log("@fetchGooglePlaces")
     let location = new google.maps.LatLng(searchLocation.lat, searchLocation.lng);
 
     var request = {
         location: location,
-        radius: 5,
-        query: String(queryItem),
-        fields: ['formatted_address', 'name', 'geometry', 'opening_hours'],
+        radius: 1000, // In meters
+        keyword: queryItem.val(),
+        // openNow: true,
+        rankBy: google.maps.places.RankBy.PROMINENCE,
+        type: ['food']
     };
 
-    gPlaces.textSearch(request, function(results, status) {
-        console.log("results:", results, "status:", status)
+    // console.log("request:", request)
+
+    // Use nearbySearch to get results from the user's keyword(s)
+    gPlaces.nearbySearch(request, function(results, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) return 
 
-        console.log("findPlaceFromQuery:")
         for (var i = 0; i < results.length; i++) {
+            console.log(results[i].name, results[i].opening_hours.isOpen(), results[i].vicinity)
             // console.log(results[i])
-            if (results[i].name == String(queryItem)) {
-                console.log("found the place")
-            }
         }
       });
 }
