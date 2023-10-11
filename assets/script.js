@@ -21,7 +21,7 @@ fetch(requestURL)
                 recipeItemUl.append("<li>" + data.hits[i].recipe.cuisineType + "</li>")
                 recipeItemUl.append("<li>" + Math.round(data.hits[i].recipe.calories) + " calories</li>")
                 recipeItemUl.append('<li><a href = /food-finder/recipe_results.html?q=' + recipeId + '> Details</a></li>')
-                recipeItemUl.append("<img src=" + data.hits[i].recipe.images.SMALL.url + ">")
+                $("#recipe_results").append("<img src=" + data.hits[i].recipe.images.SMALL.url + ">")
             }
         }
     });
