@@ -24,6 +24,7 @@ function showRecipeResults(searchQuery) {
         if (data.hits.length === 0) {
             $("#recipe_results").text("There is no recipe matching your query. Search another menu.")
         } else {
+            $("#recipe_results").children().remove(); // Delete element from the previous search if any
             for (i = 0; i < 3; i++){
                 var recipeId = data.hits[i].recipe.uri.split("_")[1];
                 var recipeIdDocument = "#" + recipeId;
