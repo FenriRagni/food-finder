@@ -3,6 +3,11 @@ $(document).ready(function(){
     var button = $("button");
     var query = "";
 
+$(document).ready(function(){   
+    var search = $("#search");
+    var button = $("button");
+    var query = "";
+
 /// Base API request to get recipe data 
 var requestURL = "https://api.edamam.com/api/recipes/v2?type=public&q="+ "italian" + "&app_id=f77c7e0e&app_key=43e8d41a5b2ed56c8d6d782c1d900e3e";
 fetch(requestURL)
