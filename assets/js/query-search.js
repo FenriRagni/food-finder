@@ -71,23 +71,23 @@ function initGoogle() {
 
 
 function initAutocomplete() {
-        // Create a bounding box with sides ~10km away from the center point
-        const defaultBounds = {
-            north: deviceLocation.lat + 0.1,
-            south: deviceLocation.lat - 0.1,
-            east: deviceLocation.lng + 0.1,
-            west: deviceLocation.lng - 0.1,
-        };
-    
-        const options = {
-            bounds: defaultBounds,
-            types: ["(cities)"],
-            fields: ["geometry", "icon", "name", "place_id"],
-        }
-    
-        gAutocomplete = new google.maps.places.Autocomplete(document.getElementById("query-location"), options);
-    
-        gAutocomplete.addListener('place_changed', handleUpdateAutocomplete);
+    // Create a bounding box with sides ~10km away from the center point
+    const defaultBounds = {
+        north: deviceLocation.lat + 0.1,
+        south: deviceLocation.lat - 0.1,
+        east: deviceLocation.lng + 0.1,
+        west: deviceLocation.lng - 0.1,
+    };
+
+    const options = {
+        bounds: defaultBounds,
+        types: ["(cities)"],
+        fields: ["geometry"],
+    }
+
+    gAutocomplete = new google.maps.places.Autocomplete(document.getElementById("query-location"), options);
+
+    gAutocomplete.addListener('place_changed', handleUpdateAutocomplete);
 }
 
 
