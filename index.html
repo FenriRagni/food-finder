@@ -31,23 +31,14 @@
         </figure>
     </section>
     <section>
-        <div id="application" class="columns">
-            <div class="column is-6">
-                <div class="control ">   <!-- THIS IS THE USER INPUT BOX -->
-                    <input id="wantEat" class="input " type="text" placeholder="What do you want to eat today ?">  <!--  USER INPUT  -->
-                    <button class="button is-info">Info</button>  
-                </div>
-            </div>
-            <div class="column is-6">
-                <div class="control is-loading">   <!-- THIS IS THE USER INPUT BOX -->
-                    <input id="location" class="input " type="text" placeholder="Location">
-                    <button class="button is-info">Info</button>
-                  </div>
-                  
-            </div>
-            
-
-          </div>
+        <div class="is-flex is-justify-content-center">
+            <form class="is-flex is-flex-direction-row ">
+                <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
+                <input type="text" id="query-location" class="input mx-3" placeholder="Location">
+                <p id="debug-text"></p>
+                <button type="button" id="button-search" class="button is-primary">Search</button>
+            </form>
+        </div>
     </section>
     <!-- <nav>
             <img src="./assets/images/pixil-frame-0 (2).png" id="logo" alt="logo"/>
@@ -55,6 +46,7 @@
             <button>Home </button>
             <button> About Us </button>
             <button> Contact </button>
+
             <form>
                 <input type="text">
                 <button>Search</button>
@@ -66,6 +58,25 @@
             <h2>Top Recipes</h2>
             <p>placeholder
                 <img src="#" />
+
+        </nav>
+    </header>
+
+    <main>
+        <div class="is-flex is-justify-content-center">
+            <form class="is-flex is-flex-direction-row ">
+                <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
+                <input type="text" id="query-location" class="input mx-3" placeholder="Location">
+                <p id="debug-text"></p>
+                <button type="button" id="button-search" class="button is-primary">Search</button>
+            </form>
+        </div>
+    </main>
+    <div>
+        <div>
+            <h2>Top Recipes</h2>
+            <p id = "recipe_results">placeholder
+
             </p>
             <h2>Top Restaurants</h2>
             <p>placeholder
@@ -75,9 +86,18 @@
     </div>
     <a>See more recipes</a>
     <a>See more restaurants</a> -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="./assets/script.js"></script>
+
+        <div id="map"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initGoogle">
+    </script>
+
+    <script src="./assets/js/query-recipe.js"></script>
+    <script src="./assets/js/query-search.js"></script>
 </body>
 
 </html>
