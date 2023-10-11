@@ -19,7 +19,7 @@ fetch(requestURL)
                 $("#recipe_results").append('<h3 id = "'+ recipeId + '">' + data.hits[i].recipe.label + '</h3>');
                 var recipeItemUl = $(recipeIdDocument).append("<ul></ul>"); 
                 recipeItemUl.append("<li>" + data.hits[i].recipe.cuisineType + "</li>")
-                recipeItemUl.append("<li>" + data.hits[i].recipe.calories + " calories</li>")
+                recipeItemUl.append("<li>" + Math.round(data.hits[i].recipe.calories) + " calories</li>")
                 recipeItemUl.append('<li><a href = /food-finder/recipe_results.html?q=' + recipeId + '> Details</a></li>')
                 recipeItemUl.append("<img src=" + data.hits[i].recipe.images.SMALL.url + ">")
             }
