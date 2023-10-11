@@ -1,17 +1,74 @@
-nav {
-    max-width: none;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    height: 120px;
-    align-items: center;
+:root{
+    --main-color: rgba(114, 130, 112, 0.956);
 }
-#logo {
-    width: 50px; height:50px
+*{
+    font-family: lato;
+}
+body {
+    background-color: rgba(73, 46, 46, 0.902);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 2000px;
 }
 
-#container {
-    height: 100vh;
+#logo {
+    width: 50px;
+    height: 50px;
+}
+
+.hero .title {
+    font-weight: 700;
+    font-size: 60px;
+    color: #241d18;
+}
+
+#header {
+    background-color: var(--main-color);
+    border-radius: 20px;
+    min-width: 1200px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#welcomePhoto {
+    width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 30px;
+}
+
+.welcomePhoto {
+    padding-bottom: 40px;
+}
+
+.mainContent {
+    width: 1200px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 30px;
+    background-color: rgb(22, 22, 19);
+    padding: 20px;
+}
+
+#application {
+    margin: auto;
+    max-width: 1200px;
+}
+
+#application .column {
+    background-color: var(--main-color);
+    border-radius: 20px;
+    max-width: 570px;
+    margin: auto;
+    height: 90px;
+    padding-top: 23px;
+}
+
+#application input {
+    padding: 13px;
+    width: 443px;
 }
 
 form {
