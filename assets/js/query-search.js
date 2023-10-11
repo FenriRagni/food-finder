@@ -50,8 +50,9 @@ async function fetchGooglePlaces() {
 
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(document.getElementById("query-location"), {
-        types: ["establishment"],
-        fields: ["place_id", "geometry", "name"]
+        types: ["(cities)"],
+        fields: ["geometry", "name", "place_id",],
+        strictBounds: true,
     });
 
     autocomplete.addListener('place_changed', handlePlaceChanged);
