@@ -23,6 +23,7 @@
             <form class="is-flex is-flex-direction-row ">
                 <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
                 <input type="text" id="query-location" class="input mx-3" placeholder="Location">
+                <p id="debug-text"></p>
                 <button type="button" id="button-search" class="button is-primary">Search</button>
             </form>
         </div>
@@ -41,9 +42,17 @@
     </div>
     <a>See more recipes</a>
     <a>See more restaurants</a>
+
+    <div id="google-helper"></div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initAutocomplete">
+    </script>
+
     <script src="./assets/script.js"></script>
-    <script src="./assets/js/google-places.js"></script>
+    <script src="./assets/js/query-search.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 /// Base API request to get recipe data 
-var requestURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=bc252eb72b7f48ba812d2420ce79224d&q=" + "italian";
+function fetchSpoonData() {
+    var requestURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=bc252eb72b7f48ba812d2420ce79224d&q=" + "italian";
     fetch(requestURL)
         .then(function (response) {
             return response.json();
@@ -12,3 +13,4 @@ var requestURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=bc252
             }
         }
     );
+}
