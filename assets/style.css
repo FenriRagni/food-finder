@@ -13,3 +13,7 @@ nav {
 #container {
     height: 100vh;
 }
+
+form {
+    width: 75%;
+}
