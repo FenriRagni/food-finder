@@ -1,17 +1,18 @@
-:root {
-    --main-color: rgba(114, 130, 112, 0.956);
+:root{
+    --main-color: rgba(43, 45, 43, 0);
 }
 
 * {
     font-family: lato;
+    color: white;
 }
 
 body {
-    background-color: rgba(73, 46, 46, 0.902);
+    background-color: rgba(31, 22, 22, 0.906);
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    height: 2000px;
+    height: 100%;
 }
 
 #logo {
@@ -22,7 +23,7 @@ body {
 .hero .title {
     font-weight: 700;
     font-size: 60px;
-    color: #241d18;
+    color: #c3c3c3;
 }
 
 #header {
@@ -33,19 +34,28 @@ body {
     margin-top: 50px;
 }
 
+#searchSection {
+    max-width:1200px;
+    background-color: rgba(36, 33, 32, 0.744);
+    height: 70px;
+    margin-bottom: 20px;
+    margin: auto;
+    border-radius: 10px;
+}
 #welcomePhoto {
-    width: 500px;
+    width: 1200px;
     margin: auto;
     margin-top: 30px;
     border-radius: 30px;
+    box-shadow: 4px 8px 30px rgb(30, 29, 29);
 }
 
 .welcomePhoto {
-    padding-bottom: 40px;
+    padding-bottom: 50px;
 }
 
 .mainContent {
-    width: 1200px;
+    width: 1400px;
     margin: auto;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -75,4 +85,25 @@ body {
 
 form {
     width: 75%;
+}
+
+.resultDisplay {
+    margin: 12px;
+    border-radius: 20px;
+}
+.card-content {
+    margin-bottom: 30px;
+}
+li {
+    color: rgb(80, 71, 71);
+    list-style: none;
+}
+
+
+.card {
+    border-radius: 30px;
+}
+
+.card:hover {
+    box-shadow: 4px 8px 30px rgb(30, 29, 29);
 }

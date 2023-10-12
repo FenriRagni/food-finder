@@ -19,12 +19,12 @@ function getSearchResults(recipeId){
             $("h2").text(data.hits[0].recipe.label);
             $("h2").append("<img src=" + data.hits[0].recipe.images.SMALL.url + ">")
             var recipeDetails = $("h3").append("<ul></ul>");
-            recipeDetails.append("<li> Calories: " + Math.round(data.hits[0].recipe.calories) + " calories</li>");
+            recipeDetails.append("<li> Calories: " + Math.round(data.hits[0].recipe.calories) + " calories</>");
             recipeDetails.append("<li> Type: " + data.hits[0].recipe.cuisineType + "</li>");
             recipeDetails.append("<li> Diet: " + data.hits[0].recipe.healthLabels + "</li>");
             for (i = 0; i < data.hits[0].recipe.ingredientLines.length; i++) {
                 var ingredients = $("h4").append("<ul></ul>");
-                ingredients.append("<li>" + data.hits[0].recipe.ingredientLines[i] + "</>");
+                ingredients.append("<li>" + data.hits[0].recipe.ingredientLines[i] + "</li>");
             };
             $("#recipe_link").html('<a href ="' + data.hits[0].recipe.url + '">Check out the cooking steps </a>');
             }
