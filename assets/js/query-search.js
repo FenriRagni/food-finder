@@ -6,7 +6,9 @@ var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
 var deviceLocation = { lat: 0, lng: 0 }
 var searchLocation = { lat: 0, lng: 0 }
-var searchRadius = 25; // miles
+var h3Items = $("h3");
+var bookmarks = [];
+var bkList = $("#bookmark");
 
 // Google services
 var gAutocomplete;
@@ -132,3 +134,67 @@ function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
     deviceLocation.lng = position.coords.longitude;
 }
+
+$(document).ready(function(){
+    loadBookmarks();
+
+    h3Items.on("click", "button", function(){
+        clickBtn = $(this);
+        console.log("button clicked!");
+        console.log("This: ", clickBtn.data("favorite"));
+        if(clickBtn.data("favorite")===false){
+            clickBtn.data("favorite", true);
+            console.log("favorite: ", clickBtn.data("favorite"));
+            var obj = {};
+            obj["name"] = clickBtn.parent().text().split("\n")[0];
+            obj["id"] = clickBtn.parent().data("id");
+            obj["type"] = clickBtn.parent().data("type");
+            console.log("object: ", obj);
+            bookmarks.push(obj);
+            console.log("bookmark array: ", bookmarks);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            clickBtn.children().children().removeClass("fa-bookmark-o");
+            clickBtn.children().children().addClass("fa-bookmark");
+            loadBookmarks();
+            
+        }
+        else{
+            clickBtn.data("favorite", false);
+            clickBtn.children().children().removeClass("fa-bookmark");
+            clickBtn.children().children().addClass("fa-bookmark-o");
+            bookmarks.splice(filterBookmarks(clickBtn.parent().text().split("\n")[0]),1);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            loadBookmarks();
+            
+        }
+    })
+    function filterBookmarks(name){
+        for(var x = 0; x < bookmarks.length; x++) {
+            if(bookmarks[x].name === name){
+                return x;
+            }
+        }
+        return -1;
+    }
+
+    function loadBookmarks(){
+        bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+        console.log("Bookmarks: ", bookmarks);
+        if(bookmarks === null || bookmarks.length === 0) {
+            bookmarks = [];
+            bkList.text("");
+            bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
+        }
+        else{
+            if(bkList.length <= bookmarks.length) {
+                bkList.text("");
+                for(var x = 0; x < bookmarks.length; x++){
+                    // if(bookmarks[x].type === "recipe")
+                    bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                    //else
+                }
+            }
+            
+        }
+    }
+});
