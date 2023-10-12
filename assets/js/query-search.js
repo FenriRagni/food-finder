@@ -5,6 +5,9 @@ var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
 var deviceLocation = { lat: 0, lng: 0 }
 var searchLocation = { lat: 0, lng: 0 }
+var h3Items = $("h3");
+var bookmarks = [];
+var bkList = $("#bookmark");
 
 // Google services
 var gAutocomplete;
@@ -109,3 +112,20 @@ function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
     deviceLocation.lng = position.coords.longitude;
 }
+
+$(document).ready(function(){
+    h3Items.on("click", "button", function(){
+        clickBtn = $(this);
+        console.log("button clicked!");
+        console.log("This: ", clickBtn.data("favorite"));
+        if(clickBtn.data("favorite")===false){
+            var obj = {};
+            obj["name"] = clickBtn.parent().text().split("\n")[0];
+            obj["id"] = clickBtn.parent().data("id");
+            console.log("object: ", obj);
+            bookmarks.push(obj);
+            console.log("bookmark array: ", bookmarks);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        }
+    })
+});

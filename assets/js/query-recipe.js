@@ -29,7 +29,7 @@ function showRecipeResults(searchQuery) {
                 var recipeId = data.hits[i].recipe.uri.split("_")[1];
                 console.log("recipeID: ", recipeId);
                 var recipeIdDocument = "#" + recipeId;
-                $("#recipe_results").append('<h3 id = "'+ recipeId + '">' + data.hits[i].recipe.label + '</h3>');
+                $("#recipe_results").append('<h3 id = "'+ recipeId + '" data-id="'+ recipeId +'">' + data.hits[i].recipe.label + '</h3>');
                 var recipeItemUl = $(recipeIdDocument).append("<ul></ul>"); 
                 recipeItemUl.append("<li>" + data.hits[i].recipe.cuisineType + "</li>")
                 recipeItemUl.append("<li>" + Math.round(data.hits[i].recipe.calories) + " calories</li>")
