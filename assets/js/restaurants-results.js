@@ -41,9 +41,10 @@ function displayResults(results) {
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
+        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
 
         let card = $("<div>");
-        card.addClass("card column is-4 mx-3 mt-3")
+        card.addClass("card column is-3 mx-3 mt-3")
 
 
         let cardHeader = $("<div>");
@@ -55,6 +56,12 @@ function displayResults(results) {
 
         cardHeader.append(cardTitle);
 
+        var cardImage = $("<div>").addClass("card-image");
+        var figure = $("<figure>").addClass("image is-4by3");
+
+        var image = $("<img>").attr("src", icon);
+        figure.append(image);
+        cardImage.append(figure);
 
         let cardContent = $("<div>");
         cardContent.addClass("card-content is-size-4");
@@ -75,7 +82,7 @@ function displayResults(results) {
 
 
         cardContent.append(isOpenEl, priceLevelEl, ratingEl);
-        card.append(cardHeader, cardContent);
+        card.append(cardImage, cardHeader, cardContent);
         cardDiv.append(card);
     }
 
