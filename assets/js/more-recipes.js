@@ -18,7 +18,7 @@ function getSearchResults(searchQuery) {
         if (data.hits.length === 0) {
             $("#card-header-title").text("There is no recipe matching your query. Search another menu.")
         } else {
-            $("h1").text("Showing " + data.hits.length + " results for: " + searchQuery)
+            $("h1").text("Showing " + data.hits.length + " recipe results for: " + searchQuery)
             let cardContainer = $("#container-cards");
             let cardDiv = $("<div>");
             cardDiv.addClass("columns p-3 mb-0");
@@ -31,7 +31,7 @@ function getSearchResults(searchQuery) {
                 var imageSouce = data.hits[i].recipe.images.SMALL.url; 
 
                 let card = $("<div>");
-                card.addClass("card column is-4 mx-3 mt-3")
+                card.addClass("card column is-3 mx-3 mt-3")
                 
                 let cardHeader = $("<div>");
                 cardHeader.addClass("card-header");
@@ -49,7 +49,7 @@ function getSearchResults(searchQuery) {
 
                 let figure = $("<figure>");
                 figure.addClass('image');
-                figure.html('<img src = "'+ imageSouce + '">');
+                figure.html('<img style="border-radius:5%" src = "'+ imageSouce + '">');
                 cardImage.append(figure);
 
                 let descriptions = $("<ul>");
