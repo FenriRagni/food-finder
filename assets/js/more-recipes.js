@@ -18,31 +18,65 @@ function getSearchResults(searchQuery) {
         if (data.hits.length === 0) {
             $("#card-header-title").text("There is no recipe matching your query. Search another menu.")
         } else {
+            $("h1").text("Showing " + data.hits.length + " results for: " + searchQuery)
+            let cardContainer = $("#container-cards");
+            let cardDiv = $("<div>");
+            cardDiv.addClass("columns p-3 mb-0");
             for (i = 0; i < 20; i ++) {
-                if (data.hits[i].recipe.length !== 0) {
-                    var recipeId = data.hits[i].recipe.uri.split("_")[1];
-                    if (i % 3 === 0) {
-                        $("#container").append('<div class="columns is-mobile is-centered" id = "column_' + i + '"></div>');
-                        var newColumnId = "#column_" + i;
-                    };
-                    $(newColumnId).append('<div class="column" id = "columnitem_' + i + '" ></div>');
-                    var columnItemId = "#columnitem_" + i;
-                    $(columnItemId).append('<div class="card-header"><div class="card-header-title title is-4 is-centered has-text-primary">' + data.hits[i].recipe.label + '</div></div>');
-                    $(columnItemId).append('<div class="card-content"> <div class="media"  value = "' + recipeId + '" id = "' +  recipeId + '"></div></div>');
-                    var mediaClassId = "#" + recipeId;
-                    $(mediaClassId).append('<div class="media-left"><figure class="image is-48x48"><img src="' + data.hits[i].recipe.images.REGULAR.url + '"></figure></div>');
-                    $(mediaClassId).append('<div class="media-content"><ul class="content has-text-primary" id = "list_' + recipeId + '"></ul></div>');
-                    var recipeListId = "#list_" + recipeId;
-                    $(recipeListId).append("<li>" + data.hits[i].recipe.cuisineType + "</li>");
-                    $(recipeListId).append("<li>" + data.hits[i].recipe.mealType + "</li>");
-                    $(recipeListId).append("<li>" + Math.round(data.hits[i].recipe.calories) + " calories</li>");
-                    $(recipeListId).append("<li>" + data.hits[i].recipe.healthLabels[0] + "</li>");
-                    $(recipeListId).append('<li><a href = /recipe-details.html?q=' + recipeId + '> Details</a></li>');
-                };
+                var name = data.hits[i].recipe.label;
+                var cuisineType = data.hits[i].recipe.cuisineType;
+                var mealTypeData = data.hits[i].recipe.mealType;
+                var calorieData = Math.round(data.hits[i].recipe.calories);
+                var recipeId = data.hits[i].recipe.uri.split("_")[1];
+                var imageSouce = data.hits[i].recipe.images.SMALL.url; 
+
+                let card = $("<div>");
+                card.addClass("card column is-4 mx-3 mt-3")
+                
+                let cardHeader = $("<div>");
+                cardHeader.addClass("card-header");
+                
+                let cardTitle = $("<h3>");
+                cardTitle.addClass("card-header-title title is-3 is-centered");
+                cardTitle.text(name)
+
+                cardHeader.append(cardTitle);
+                let cardContent = $("<div>");
+                cardContent.addClass("card-content is-size-4");
+
+                let cardImage = $("<div>");
+                cardImage.addClass("card-image");
+
+                let figure = $("<figure>");
+                figure.addClass('image is-128x128');
+                figure.html('<img src = "'+ imageSouce + '">');
+                cardImage.append(figure);
+                
+                let cuisine = $("<p>");
+                cuisine.addClass("content");
+                cuisine.html(cuisineType);
+
+                let mealType = $("<p>");
+                mealType.addClass("content");
+                mealType.html(mealTypeData);
+
+                let calorie = $("<p>");
+                calorie.addClass("content");
+                calorie.html(calorieData + "calorie");
+
+                let detailsLink = $("<p>");
+                detailsLink.addClass("content");
+                detailsLink.html('<a href = /recipe-details.html?q=' + recipeId + '> Details</a>');
+
+
+                cardContent.append(cardImage,cuisine, mealType, calorie,detailsLink);
+                card.append(cardHeader, cardContent);
+                cardDiv.append(card);
+                }    
+            cardContainer.append(cardDiv)
             };
-        }
-    })
-}; 
+        })
+    } 
 
 getSearchQuery();
 

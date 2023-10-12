@@ -1,0 +1,14 @@
+body {
+    height: 100%;
+}
+
+#container-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+#container-cards .columns {
+    flex-wrap: wrap;
+    justify-content: center;
+}
