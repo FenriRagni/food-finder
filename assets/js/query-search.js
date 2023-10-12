@@ -130,6 +130,8 @@ $(document).ready(function(){
         console.log("button clicked!");
         console.log("This: ", clickBtn.data("favorite"));
         if(clickBtn.data("favorite")===false){
+            clickBtn.data("favorite", true);
+            console.log("favorite: ", clickBtn.data("favorite"));
             var obj = {};
             obj["name"] = clickBtn.parent().text().split("\n")[0];
             obj["id"] = clickBtn.parent().data("id");
@@ -137,6 +139,12 @@ $(document).ready(function(){
             bookmarks.push(obj);
             console.log("bookmark array: ", bookmarks);
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            clickBtn.children().children().removeClass("fa-heart-o");
+            clickBtn.children().children().addClass("fa-heart");
+            
+        }
+        else{
+            
         }
     })
 });
