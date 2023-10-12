@@ -51,25 +51,24 @@ function getSearchResults(searchQuery) {
                 figure.addClass('image is-128x128');
                 figure.html('<img src = "'+ imageSouce + '">');
                 cardImage.append(figure);
+
+                let descriptions = $("<ul>");
+                descriptions.addClass("content");
                 
-                let cuisine = $("<p>");
-                cuisine.addClass("content");
-                cuisine.html(cuisineType);
+                let cuisine = $("<li>");
+                cuisine.html("Type: " + cuisineType);
 
-                let mealType = $("<p>");
-                mealType.addClass("content");
-                mealType.html(mealTypeData);
+                let mealType = $("<li>");
+                mealType.html("Good for: " + mealTypeData);
 
-                let calorie = $("<p>");
-                calorie.addClass("content");
-                calorie.html(calorieData + "calorie");
+                let calorie = $("<li>");
+                calorie.html(calorieData + " calorie");
 
-                let detailsLink = $("<p>");
-                detailsLink.addClass("content");
+                let detailsLink = $("<li>");
                 detailsLink.html('<a href = /recipe-details.html?q=' + recipeId + '> Details</a>');
 
-
-                cardContent.append(cardImage,cuisine, mealType, calorie,detailsLink);
+                descriptions.append(cuisine,mealType,calorie,detailsLink)
+                cardContent.append(cardImage,descriptions);
                 card.append(cardHeader, cardContent);
                 cardDiv.append(card);
                 }    
