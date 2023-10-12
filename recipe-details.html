@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Finder</title>  
+    <title>Food Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/style.css">
 
@@ -12,40 +13,66 @@
         href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic"
         rel="stylesheet" />
 </head>
+
 <body>
-        <section class="hero">
-            <div class="hero-body" id="header">
-                <div class="container">
-                    <article class="media">
-                        <figure class="media-left">
-                            <p class="image">
-                                <img id="logo" src="./assets/images/pixil-frame-0 (2).png">
-                            </p>
-                        </figure>
-                        <h1 class="title"> FOOD FINDER </h1>
-    
-                </div>
-        </section>
-        <section>
+    <section class="hero">
+        <div class="hero-body" id="header">
             <div class="container">
-                <div class="columns">
-                    <div></div>
-                    <div class="column">
-                        <div class="column">
-                            <div class="card ">
-                                <h1 class="has-text-black"> Hello World</h1> 
-                            </div>
-                        </div>
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image">
+                            <img id="logo" src="./assets/images/pixil-frame-0 (2).png">
+                        </p>
+                    </figure>
+                    <h1 class="title"> FOOD FINDER </h1>
+
+            </div>
+    </section>
+    <section>
+        <div class="container">
+
+
+            <!-- Pointer to title -->
+            <div id="title" class="message-header"> 
+                <p class="title has-text-white">Recipe Title</p>
+            </div>
+
+
+            <br>
+
+             <!-- Pointer to image and detail/location -->
+            <div class="columns">
+                <div class="column is-6">
+                    <div id="photo" class="card">
+                        <figure class="image is-4by3">
+                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                          </figure>
                     </div>
-                    <div class="column">
-                        <h1> Hello World</h1>
-                    </div>                    
-                </div>                    
+                </div>
+                <div class="column is-6 ">
+                    <div id="info" class="card ">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                              Card header
+                            </p>
+                        </header>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-content">
+                          <div class="content">
+                            Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis consectetur purus sit amet fermentum.
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
 
-        </section>
+    </section>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./assets/js/recipe_results.js"></script>
 </body>
+
 </html>
