@@ -56,10 +56,51 @@ function displayResults(results) {
         cardHeader.addClass("card-header");
 
         let cardTitle = $("<h3>");
-        cardTitle.addClass("card-header-title title is-3 is-centered");
+        cardTitle.addClass("card-header-title title my-0 is-3 is-centered");
         cardTitle.text(name)
-
         cardHeader.append(cardTitle);
+      
+        var icon = $('<i class="fa is-pulled-right more-icon" data-id="'+ results[i].place_id + '" data-type="recipe" data-name="' + name +'"/>')
+        if(filterBookmarks(results[i].place_id) >= 0){
+            icon.data("favorite", true);
+            icon.addClass("fa-bookmark")
+        }
+        else{
+            icon.data("favorite", false);
+            icon.addClass("fa-bookmark-o")
+        }
+        
+        icon.on("click", function(){
+            var item = $(this);
+            console.log("icon: ", item);
+            if(item.data("favorite")===false) {
+                item.data("favorite", true);
+                console.log("favorite: ", item.data("favorite"));
+                var obj = {};
+                obj["name"] = item.data("name");
+                obj["id"] = item.data("id");
+                obj["type"] = item.data("type");
+                console.log("object: ", obj);
+                bookmarks.push(obj);
+                console.log("bookmark array: ", bookmarks);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
+                loadBookmarks();
+            }
+            else{
+                item.data("favorite", false);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                loadBookmarks();
+                
+            }
+        })
+        cardHeader.append(icon);
+            
+
 
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
@@ -67,7 +108,6 @@ function displayResults(results) {
         var image = $("<img>").attr("src", photo);
         figure.append(image);
         cardImage.append(figure);
-
         let cardContent = $("<div>");
         cardContent.addClass("card-content is-size-4");
 
@@ -116,6 +156,5 @@ function buildPriceLevelStr(priceLevel) {
             return "<strong>$ $</strong>"
     }
 }
-
-
+loadBookmarks();
 // https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJrTLr-GyuEmsRBfy61i59si0&fields=address_components&key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q
