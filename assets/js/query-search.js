@@ -114,6 +114,17 @@ function showPosition(position) {
 }
 
 $(document).ready(function(){
+    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    if(bookmarks === null) {
+        bookmarks = [];
+        bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
+    }
+    else{
+        for(var x = 0; x < bookmarks.length; x++){
+            bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+        }
+    }
+
     h3Items.on("click", "button", function(){
         clickBtn = $(this);
         console.log("button clicked!");
