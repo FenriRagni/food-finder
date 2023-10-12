@@ -69,12 +69,12 @@ function fetchGooglePlaces(keyword) {
         }
         
         results.push(searchOptions); // Add searchInfo to the end to use later
-        
+        displayResults(results);
+
         // Store results in local storage to bring to see-more-restaurants.html
         let stringifyResults = JSON.stringify(results);
         // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
-        displayResults(results);
 
         // This is only here for testing purposes. This will occur when the "See more restaurants" button is clicked
         // window.location.href = "./see-more-restaurants.html"
@@ -85,12 +85,11 @@ function fetchGooglePlaces(keyword) {
 
 
 function displayResults(results) {
-
-    var restaurantContainer = $("#restaurant-display");
+    console.log("results.length:", results.length);
+    var restaurantContainer = $(".restaurantDisplay");
     restaurantContainer.val("");
-    let cardDiv = $("<div>");
-    cardDiv.addClass("columns p-3 mb-0");
 
+    // Only loop through a certain amount of times
     for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
         let info = results[i];
         let name = info.name;
@@ -98,23 +97,25 @@ function displayResults(results) {
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
+        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
 
-        let card = $("<div>");
-        card.addClass("card column is-4 mx-3 mt-3")
+        var resultColumn = $("<div>").addClass("column is-3 resultDisplay");
+        var resultCard = $("<div>").addClass("card");
+        
+        var cardImage = $("<div>").addClass("card-image");
+        var figure = $("<figure>").addClass("image is-4by3");
 
-
-        let cardHeader = $("<div>");
-        cardHeader.addClass("card-header");
-
-        let cardTitle = $("<h3>");
-        cardTitle.addClass("card-header-title title is-3 is-centered");
-        cardTitle.text(name)
-
-        cardHeader.append(cardTitle);
+        var image = $("<img>").attr("src", icon);
+        figure.append(image);
+        cardImage.append(figure);
 
 
-        let cardContent = $("<div>");
-        cardContent.addClass("card-content is-size-4");
+        var cardContent = $("<div>").addClass("card-content");
+        var mediaContent = $("<div>").addClass("media-content");
+
+        var cardTitle = $("<h2>");
+        cardTitle.addClass("title is-4");
+        cardTitle.text(name);
 
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
@@ -128,37 +129,13 @@ function displayResults(results) {
         priceLevelEl.addClass("content");
         priceLevelEl.html(priceLevel);
 
-        // let descriptionEl = $("<p>");
-
-
-        cardContent.append(isOpenEl, priceLevelEl, ratingEl);
-        card.append(cardHeader, cardContent);
-        cardDiv.append(card);
+        mediaContent.append(cardTitle, isOpenEl, priceLevelEl, ratingEl);
+        
+        cardContent.append(mediaContent);
+        resultCard.append(cardImage, cardContent);
+        resultColumn.append(resultCard);
+        restaurantContainer.append(resultColumn); // Append to the container every iteration
     }
-
-    restaurantContainer.append(cardDiv);
-
-    // var resultColumn = $("<div>").addClass("column is-3 resultDisplay");
-    // var resultCard = $("<div>").addClass("card");
-    // var cardImage = $("<div>").addClass("card-image");
-    // var figure = $("<figure>").addClass("image is-4by3");
-    // var cardContent = $("<div>").addClass("card-content");
-    // var mediaContent = $("<div>").addClass("media-content");
-    // var cardTitle = $("<h1>").addClass("title is-4");
-    // var cardSub = $("<h2>").addClass("subtitle is-6");
-    // var recipeBox = $("<ul>");
-    // resultColumn.append(resultCard);
-    // $(".recipeDisplay").append(resultColumn);
-    // resultCard.append(cardImage);
-    // cardImage.append(figure);
-    // resultCard.append(cardContent);
-    // cardContent.append(mediaContent);
-    // mediaContent.append(cardTitle, cardSub, recipeBox);
-    // recipeBox.append("<li>  this is a test  </li>");
-    // recipeBox.attr("class","ingredient")
-    // figure.append($("<img>").attr("src", imagehtml));
-    // cardTitle.text(title);
-    // cardSub.text("Cuisine type: " + subtitle);
 }
 
 function buildPriceLevelStr(priceLevel) {
