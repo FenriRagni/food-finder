@@ -72,12 +72,14 @@ function showRecipeResults(searchQuery) {
         recipeBox.attr("class","ingredient")
         figure.append($("<img>").attr("src", imagehtml));
         cardTitle.text(title);
-        var icon = $('<i class="fa fa-bookmark-o is-pulled-right" data-id="'+ recipeId + '" data-type="recipe" data-name="' + title +'"/>')
-        if(filterBookmarks(title) > 0){
+        var icon = $('<i class="fa is-pulled-right" data-id="'+ recipeId + '" data-type="recipe" data-name="' + title +'"/>')
+        if(filterBookmarks(recipeId) >= 0){
             icon.data("favorite", true);
+            icon.addClass("fa-bookmark")
         }
         else{
             icon.data("favorite", false);
+            icon.addClass("fa-bookmark-o")
         }
         cardTitle.append(icon);
         icon.on("click", function(){
@@ -94,15 +96,15 @@ function showRecipeResults(searchQuery) {
                 bookmarks.push(obj);
                 console.log("bookmark array: ", bookmarks);
                 localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-                item.children().children().removeClass("fa-bookmark-o");
-                item.children().children().addClass("fa-bookmark");
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
                 loadBookmarks();
             }
             else{
                 item.data("favorite", false);
-                item.children().children().removeClass("fa-bookmark");
-                item.children().children().addClass("fa-bookmark-o");
-                bookmarks.splice(filterBookmarks(item.parent().text().split("\n")[0]),1);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
                 localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
                 loadBookmarks();
                 
@@ -113,9 +115,9 @@ function showRecipeResults(searchQuery) {
 
 }
 
-function filterBookmarks(name){
+function filterBookmarks(itemId){
     for(var x = 0; x < bookmarks.length; x++) {
-        if(bookmarks[x].name === name){
+        if(bookmarks[x].id === itemId){
             return x;
         }
     }
@@ -134,9 +136,10 @@ function loadBookmarks(){
         if(bkList.length <= bookmarks.length) {
             bkList.text("");
             for(var x = 0; x < bookmarks.length; x++){
-                // if(bookmarks[x].type === "recipe")
-                bkList.append($('<div class="dropdown-item"><a href= "recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
-                //else
+                if(bookmarks[x].type === "recipe"){
+                    bkList.append($('<div class="dropdown-item"><a href= "recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                }
+                
             }
         }
         

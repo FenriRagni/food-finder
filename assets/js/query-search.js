@@ -116,7 +116,45 @@ function displayResults(results) {
         var cardTitle = $("<h2>");
         cardTitle.addClass("title is-4");
         cardTitle.text(name);
-
+        var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
+        console.log("bookIcon: ", bookIcon);
+        if(filterBookmarks(results[i].place_id) >= 0){
+            bookIcon.data("favorite", true);
+            bookIcon.addClass("fa-bookmark")
+        }
+        else{
+            bookIcon.data("favorite", false);
+            bookIcon.addClass("fa-bookmark-o")
+        }
+        cardTitle.append(bookIcon);
+        bookIcon.on("click", function(){
+            var item = $(this);
+            console.log("icon: ", item);
+            if(item.data("favorite")===false) {
+                item.data("favorite", true);
+                console.log("favorite: ", item.data("favorite"));
+                var obj = {};
+                obj["name"] = item.data("name");
+                obj["id"] = item.data("id");
+                obj["type"] = item.data("type");
+                console.log("object: ", obj);
+                bookmarks.push(obj);
+                console.log("bookmark array: ", bookmarks);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
+                loadBookmarks();
+            }
+            else{
+                item.data("favorite", false);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                loadBookmarks();
+                
+            }
+        })
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
         isOpenEl.html(`is <strong>${isOpen}</strong>`)
@@ -208,37 +246,3 @@ function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
     deviceLocation.lng = position.coords.longitude;
 }
-
-$(document).ready(function(){
-
-    // icons.on("click", function(){
-    //     clickBtn = $(this);
-    //     console.log("button clicked!");
-    //     console.log("This: ", clickBtn.data("favorite"));
-    //     if(clickBtn.data("favorite")===false){
-    //         clickBtn.data("favorite", true);
-    //         console.log("favorite: ", clickBtn.data("favorite"));
-    //         var obj = {};
-    //         obj["name"] = clickBtn.parent().text().split("\n")[0];
-    //         obj["id"] = clickBtn.parent().data("id");
-    //         obj["type"] = clickBtn.parent().data("type");
-    //         console.log("object: ", obj);
-    //         bookmarks.push(obj);
-    //         console.log("bookmark array: ", bookmarks);
-    //         localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    //         clickBtn.children().children().removeClass("fa-bookmark-o");
-    //         clickBtn.children().children().addClass("fa-bookmark");
-    //         loadBookmarks();
-            
-    //     }
-    //     else{
-    //         clickBtn.data("favorite", false);
-    //         clickBtn.children().children().removeClass("fa-bookmark");
-    //         clickBtn.children().children().addClass("fa-bookmark-o");
-    //         bookmarks.splice(filterBookmarks(clickBtn.parent().text().split("\n")[0]),1);
-    //         localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    //         loadBookmarks();
-            
-    //     }
-    // })
-});
