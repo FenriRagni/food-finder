@@ -51,7 +51,7 @@ function showRecipeResults(searchQuery) {
     // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
     // THIS FUNCTION WILL TAKE IN TITLE, CARD TEXT CONTENT AND IMAGE URL
     function RecipecardGenerator(title, subtitle, imagehtml) {
-        var resultColumn = $("<div>").addClass("column is-3 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
