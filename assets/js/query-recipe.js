@@ -29,16 +29,14 @@ function showRecipeResults(searchQuery) {
                     "There is no recipe matching your query. Search another menu."
                 );
             } else {
+                $("#recipe_results").children().remove();
                 for (i = 0; i < 4; i++) {
                     var recipeId = data.hits[i].recipe.uri.split("_")[1];
                     var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE LABEL SOURCE
                     var extractCuiseType = data.hits[i].recipe.cuisineType;
                     crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
-                    console.log("The Recipe origin is " + crusinetype);
                     var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
                     var ingredient = data.hits[i].recipe.ingredientLines;
-
-
                     // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
                     RecipecardGenerator(recipeTitle, crusinetype, imageSouce);
                 }

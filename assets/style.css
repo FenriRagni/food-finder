@@ -4,7 +4,6 @@
 
 * {
     font-family: lato;
-    color: white;
 }
 
 body {
@@ -81,6 +80,10 @@ body {
 #application input {
     padding: 13px;
     width: 443px;
+}
+
+#morerecipeimage{
+    max-width: 100%;
 }
 
 form {
