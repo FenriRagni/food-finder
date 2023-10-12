@@ -48,7 +48,7 @@ function getSearchResults(searchQuery) {
                 cardImage.addClass("card-image");
 
                 let figure = $("<figure>");
-                figure.addClass('image is-128x128');
+                figure.addClass('image');
                 figure.html('<img src = "'+ imageSouce + '">');
                 cardImage.append(figure);
 
@@ -56,10 +56,10 @@ function getSearchResults(searchQuery) {
                 descriptions.addClass("content");
                 
                 let cuisine = $("<li>");
-                cuisine.html("Type: " + cuisineType);
+                cuisine.html("<b>Type</b>: " + cuisineType);
 
                 let mealType = $("<li>");
-                mealType.html("Good for: " + mealTypeData);
+                mealType.html("<b>Good for</b>: " + mealTypeData);
 
                 let calorie = $("<li>");
                 calorie.html(calorieData + " calorie");
@@ -68,8 +68,8 @@ function getSearchResults(searchQuery) {
                 detailsLink.html('<a href = /recipe-details.html?q=' + recipeId + '> Details</a>');
 
                 descriptions.append(cuisine,mealType,calorie,detailsLink)
-                cardContent.append(cardImage,descriptions);
-                card.append(cardHeader, cardContent);
+                cardContent.append(descriptions);
+                card.append(cardImage,cardHeader, cardContent);
                 cardDiv.append(card);
                 }    
             cardContainer.append(cardDiv)
