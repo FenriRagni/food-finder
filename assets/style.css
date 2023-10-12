@@ -1,9 +1,11 @@
-:root{
+:root {
     --main-color: rgba(114, 130, 112, 0.956);
 }
-*{
+
+* {
     font-family: lato;
 }
+
 body {
     background-color: rgba(73, 46, 46, 0.902);
     font-family: 'Roboto', sans-serif;

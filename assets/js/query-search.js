@@ -1,4 +1,5 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
+const SEARCH_RESULTS = "searchResults"
 
 var queryItem = $("#query-item");
 var queryLocation = $("#query-location");
@@ -21,7 +22,7 @@ function handleSearch(event) {
     event.stopPropagation();
     event.preventDefault();
     
-    fetchGooglePlaces()
+    fetchGooglePlaces(queryItem.val())
 }
 
 async function handleUpdateAutocomplete() {
@@ -37,14 +38,14 @@ async function handleUpdateAutocomplete() {
 }
 
 
-async function fetchGooglePlaces() {
+function fetchGooglePlaces(keyword) {
     // console.log("@fetchGooglePlaces")
     let location = new google.maps.LatLng(searchLocation.lat, searchLocation.lng);
 
     var request = {
         location: location,
         radius: 1000, // In meters
-        keyword: queryItem.val(),
+        keyword: keyword,
         // openNow: true,
         rankBy: google.maps.places.RankBy.PROMINENCE,
         type: ['food']
@@ -56,12 +57,20 @@ async function fetchGooglePlaces() {
     gPlaces.nearbySearch(request, function(results, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) return 
 
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].name, results[i].opening_hours.isOpen(), results[i].vicinity)
-            // console.log(results[i])
-        }
-      });
+        let stringifyResults = JSON.stringify(results);
+        console.log(stringifyResults)
+        localStorage.setItem(SEARCH_RESULTS, stringifyResults)
+        window.location.href = "./see-more-restaurants.html"
+        // for (var i = 0; i < results.length; i++) {
+        //     // console.log(results[i].name, results[i].opening_hours.isOpen(), results[i].vicinity)
+        //     console.log(results[i])
+        // }
+    });
 }
+
+
+
+
 
 
 function initGoogle() {
@@ -104,6 +113,7 @@ function askForUserLocation() {
         navigator.geolocation.getCurrentPosition(showPosition)
     }
 }
+
 
 function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
