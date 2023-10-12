@@ -1,0 +1,16 @@
+#container-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+#container-cards .columns {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1024px) {
+    #container-cards {
+        flex-direction: column;
+    }   
+}

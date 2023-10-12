@@ -55,16 +55,18 @@ function fetchGooglePlaces(keyword) {
 
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) return 
-
+        if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+        results.push(keyword); // Add search keyword to the end to use later
+        
+        // Store results in local storage to bring to see-more-restaurants.html
         let stringifyResults = JSON.stringify(results);
         console.log(stringifyResults)
-        localStorage.setItem(SEARCH_RESULTS, stringifyResults)
+        localStorage.setItem(SEARCH_RESULTS, stringifyResults);
+
+        // This is only here for testing purposes. This will occur when the "See more restaurants" button is clicked
         window.location.href = "./see-more-restaurants.html"
-        // for (var i = 0; i < results.length; i++) {
-        //     // console.log(results[i].name, results[i].opening_hours.isOpen(), results[i].vicinity)
-        //     console.log(results[i])
-        // }
+        queryItem.val(""); // Clear the input fields after going to the next page
+        queryLocation.val("");
     });
 }
 
