@@ -35,10 +35,11 @@ function showRecipeResults(searchQuery) {
           var extractCuiseType=data.hits[i].recipe.cuisineType;
           crusinetype=extractCuiseType[0];
           console.log("The Recipe origin is " + crusinetype);
+          var imageSouce = data.hits[i].recipe.images.SMALL.url;
 
             // ALL WE HAVE TO DO IS INSERT INTO THE CARDGENERATOR FUNCTION
-            
-            cardGenerator(recipeTitle, crusinetype);
+
+            cardGenerator(recipeTitle, crusinetype,imageSouce);
 
 
 
@@ -88,7 +89,7 @@ function showRecipeResults(searchQuery) {
 
 // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
 // THIS FUNCTION WILL TAKE IN TITLE, CARD TEXT CONTENT AND IMAGE URL
-function cardGenerator(title,subtitle,cardText,imagehtml) {
+function cardGenerator(title,subtitle, imagehtml) {
   var resultColumn = $("<div>").addClass("column is-one-half resultDisplay");
   var resultCard = $("<div>").addClass("card");
   var cardImage = $("<div>").addClass("card-image");
@@ -106,7 +107,7 @@ function cardGenerator(title,subtitle,cardText,imagehtml) {
   cardContent.append(mediaContent);
   mediaContent.append(cardTitle, cardSub, recipeBox);
   recipeBox.append("<li>  this is a test  </li>");
-  figure.append($("<img>").attr("src", "https://via.placeholder.com/150"));
+  figure.append($("<img>").attr("src", imagehtml));
   cardTitle.text(title);
   cardSub.text("Cuisine type: "+subtitle);
 }
