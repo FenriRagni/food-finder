@@ -54,7 +54,7 @@ function fetchGooglePlaces(keyword) {
     };
 
     // console.log("request:", request)
-
+    
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {

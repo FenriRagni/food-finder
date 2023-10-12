@@ -77,5 +77,7 @@ function getSearchResults(searchQuery) {
         })
     } 
 
-getSearchQuery();
+    
 
+getSearchQuery();
+loadBookmarks();
