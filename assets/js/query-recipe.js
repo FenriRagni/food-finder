@@ -1,8 +1,11 @@
 var queryItem = $("#query-item");
 var buttonSearch = $("#button-search");
+var bookmarks = [];
+var bkList = $("#bookmark");
 
 $(function () {
     buttonSearch.on("click", searchClick);
+    loadBookmarks();
 });
 
 function searchClick(event) {
@@ -38,7 +41,7 @@ function showRecipeResults(searchQuery) {
                     var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
                     var ingredient = data.hits[i].recipe.ingredientLines;
                     // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
-                    RecipecardGenerator(recipeTitle, crusinetype, imageSouce);
+                    RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId);
                 }
             };
         });
@@ -48,7 +51,7 @@ function showRecipeResults(searchQuery) {
 
     // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
     // THIS FUNCTION WILL TAKE IN TITLE, CARD TEXT CONTENT AND IMAGE URL
-    function RecipecardGenerator(title, subtitle, imagehtml) {
+    function RecipecardGenerator(title, subtitle, imagehtml, recipeId) {
         var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
         var cardImage = $("<div>").addClass("card-image");
@@ -69,7 +72,76 @@ function showRecipeResults(searchQuery) {
         recipeBox.attr("class","ingredient")
         figure.append($("<img>").attr("src", imagehtml));
         cardTitle.text(title);
+        var icon = $('<i class="fa is-pulled-right" data-id="'+ recipeId + '" data-type="recipe" data-name="' + title +'"/>')
+        if(filterBookmarks(recipeId) >= 0){
+            icon.data("favorite", true);
+            icon.addClass("fa-bookmark")
+        }
+        else{
+            icon.data("favorite", false);
+            icon.addClass("fa-bookmark-o")
+        }
+        cardTitle.append(icon);
+        icon.on("click", function(){
+            var item = $(this);
+            console.log("icon: ", item);
+            if(item.data("favorite")===false) {
+                item.data("favorite", true);
+                console.log("favorite: ", item.data("favorite"));
+                var obj = {};
+                obj["name"] = item.data("name");
+                obj["id"] = item.data("id");
+                obj["type"] = item.data("type");
+                console.log("object: ", obj);
+                bookmarks.push(obj);
+                console.log("bookmark array: ", bookmarks);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
+                loadBookmarks();
+            }
+            else{
+                item.data("favorite", false);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                loadBookmarks();
+                
+            }
+        })
         cardSub.text("Cuisine type: " + subtitle);
     }
 
+}
+
+function filterBookmarks(itemId){
+    for(var x = 0; x < bookmarks.length; x++) {
+        if(bookmarks[x].id === itemId){
+            return x;
+        }
+    }
+    return -1;
+}
+
+function loadBookmarks(){
+    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+    console.log("Bookmarks: ", bookmarks);
+    if(bookmarks === null || bookmarks.length === 0) {
+        bookmarks = [];
+        bkList.text("");
+        bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
+    }
+    else{
+        if(bkList.length <= bookmarks.length) {
+            bkList.text("");
+            for(var x = 0; x < bookmarks.length; x++){
+                if(bookmarks[x].type === "recipe"){
+                    bkList.append($('<div class="dropdown-item"><a href= "recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                }
+                
+            }
+        }
+        
+    }
 }
