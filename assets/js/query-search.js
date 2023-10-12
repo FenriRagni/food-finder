@@ -114,16 +114,7 @@ function showPosition(position) {
 }
 
 $(document).ready(function(){
-    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-    if(bookmarks === null) {
-        bookmarks = [];
-        bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
-    }
-    else{
-        for(var x = 0; x < bookmarks.length; x++){
-            bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
-        }
-    }
+    loadBookmarks();
 
     h3Items.on("click", "button", function(){
         clickBtn = $(this);
@@ -141,10 +132,44 @@ $(document).ready(function(){
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
             clickBtn.children().children().removeClass("fa-heart-o");
             clickBtn.children().children().addClass("fa-heart");
+            loadBookmarks();
             
         }
         else{
+            clickBtn.data("favorite", false);
+            clickBtn.children().children().removeClass("fa-heart");
+            clickBtn.children().children().addClass("fa-heart-o");
+            bookmarks.splice(filterBookmarks(clickBtn.parent().text().split("\n")[0]),1);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            loadBookmarks();
             
         }
     })
+    function filterBookmarks(name){
+        for(var x = 0; x < bookmarks.length; x++) {
+            if(bookmarks[x].name === name){
+                return x;
+            }
+        }
+        return -1;
+    }
+
+    function loadBookmarks(){
+        bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+        console.log("Bookmarks: ", bookmarks);
+        if(bookmarks === null || bookmarks.length === 0) {
+            bookmarks = [];
+            bkList.text("");
+            bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
+        }
+        else{
+            if(bkList.length <= bookmarks.length) {
+                bkList.text("");
+                for(var x = 0; x < bookmarks.length; x++){
+                    bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                }
+            }
+            
+        }
+    }
 });
