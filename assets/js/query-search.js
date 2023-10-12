@@ -1,5 +1,5 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
-const SEARCH_RESULTS = "searchResults";
+const SEARCH_RESULTS = "restaurantResults";
 
 var queryItem = $("#query-item");
 var queryLocation = $("#query-location");

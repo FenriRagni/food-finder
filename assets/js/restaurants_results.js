@@ -1,4 +1,4 @@
-const SEARCH_RESULTS = "searchResults"
+const SEARCH_RESULTS = "restaurantResults"
 
 $(function() {
     let results = loadFromStorage(SEARCH_RESULTS)
@@ -37,7 +37,7 @@ function displayResults(results) {
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.opening_hours.open_now ? "Open" : "Close";
+        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
@@ -61,7 +61,7 @@ function displayResults(results) {
 
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
-        isOpenEl.html(`<strong>${isOpen}</strong>`)
+        isOpenEl.html(`is <strong>${isOpen}</strong>`)
 
         let ratingEl = $("<p>");
         ratingEl.addClass("content");
