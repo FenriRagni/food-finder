@@ -1,5 +1,8 @@
 # Food Finder app
 
+## Description
+
+Deployment link: [https://fenriragni.github.io/food-finder/](https://fenriragni.github.io/food-finder/)
 
 ## Credits
 

@@ -110,3 +110,7 @@ li {
 .card:hover {
     box-shadow: 4px 8px 30px rgb(30, 29, 29);
 }
+
+a:hover {
+    color: rgb(139, 194, 228);
+}

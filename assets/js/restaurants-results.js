@@ -1,4 +1,6 @@
-const SEARCH_RESULTS = "restaurantResults"
+const SEARCH_RESULTS = "restaurantResults";
+const RESULTS_PHOTO_URL = "photo_url";
+const RESULTS_IS_OPEN = "is_open";
 
 $(function() {
     let results = loadFromStorage(SEARCH_RESULTS)
@@ -22,6 +24,9 @@ function displayResults(results) {
     let city = searchInfo.city;
     let radius = searchInfo.radius;
 
+    console.log("first result:", results[0])
+    console.log("placeId:", results[0].place_id)
+
     let pageH1 = $("h1")
     pageH1.text("Showing " + results.length + " restaurants results for: " + keyword)
 
@@ -37,13 +42,14 @@ function displayResults(results) {
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
+        let isOpen = info[RESULTS_IS_OPEN] ? "Open" : "Closed";
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
+        let photo = info[RESULTS_PHOTO_URL];
 
         let card = $("<div>");
-        card.addClass("card column is-4 mx-3 mt-3")
+        card.addClass("card column is-3 mx-3 mt-3")
 
 
         let cardHeader = $("<div>");
@@ -53,6 +59,7 @@ function displayResults(results) {
         cardTitle.addClass("card-header-title title my-0 is-3 is-centered");
         cardTitle.text(name)
         cardHeader.append(cardTitle);
+      
         var icon = $('<i class="fa is-pulled-right more-icon" data-id="'+ results[i].place_id + '" data-type="recipe" data-name="' + name +'"/>')
         if(filterBookmarks(results[i].place_id) >= 0){
             icon.data("favorite", true);
@@ -93,6 +100,14 @@ function displayResults(results) {
         })
         cardHeader.append(icon);
             
+
+
+        var cardImage = $("<div>").addClass("card-image");
+        var figure = $("<figure>").addClass("image is-4by3");
+
+        var image = $("<img>").attr("src", photo);
+        figure.append(image);
+        cardImage.append(figure);
         let cardContent = $("<div>");
         cardContent.addClass("card-content is-size-4");
 
@@ -112,7 +127,7 @@ function displayResults(results) {
 
 
         cardContent.append(isOpenEl, priceLevelEl, ratingEl);
-        card.append(cardHeader, cardContent);
+        card.append(cardImage, cardHeader, cardContent);
         cardDiv.append(card);
     }
 
@@ -141,5 +156,5 @@ function buildPriceLevelStr(priceLevel) {
             return "<strong>$ $</strong>"
     }
 }
-
 loadBookmarks();
+// https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJrTLr-GyuEmsRBfy61i59si0&fields=address_components&key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q

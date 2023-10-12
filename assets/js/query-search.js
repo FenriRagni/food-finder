@@ -1,5 +1,7 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
 const SEARCH_RESULTS = "restaurantResults";
+const RESULTS_PHOTO_URL = "photo_url";
+const RESULTS_IS_OPEN = "is_open";
 const SHOW_INITIAL_RESTAURANTS = 4; // Determines how many restaurants to show on the front page
 
 var queryItem = $("#query-item");
@@ -50,7 +52,7 @@ function fetchGooglePlaces(keyword) {
         keyword: keyword,
         radius: milesToMeters,
         rankBy: google.maps.places.RankBy.PROMINENCE,
-        type: ['food']
+        type: ['food'],
     };
 
     // console.log("request:", request)
@@ -62,17 +64,19 @@ function fetchGooglePlaces(keyword) {
             return
         }
 
+        let updatedResults = updateResults(results);
+        displayResults(updatedResults);
+
         let searchOptions = {
             keyword: keyword,
             city: queryLocation.val(),
             radius: searchRadius,
         }
         
-        results.push(searchOptions); // Add searchInfo to the end to use later
-        displayResults(results);
+        updatedResults.push(searchOptions); // Add searchInfo to the end to use later
 
         // Store results in local storage to bring to see-more-restaurants.html
-        let stringifyResults = JSON.stringify(results);
+        let stringifyResults = JSON.stringify(updatedResults);
         // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
 
@@ -84,8 +88,34 @@ function fetchGooglePlaces(keyword) {
 }
 
 
+/**
+ * Updates each google place result with a photo url and if its open or not
+ * @param {JSON} results 
+ * @returns updated version of the JSON with the photo url and if restaurant is currently open.
+ */
+function updateResults(results) {
+    let resultsCopy = results;
+
+    for (let i = 0; i < results.length; i++) {
+        let info = results[i];
+        let photoUrl = info.photos[0].getUrl({maxWidth: 500, maxHeight: 500});
+        let isOpen = (info.opening_hours.isOpen()) ? info.opening_hours.isOpen() : info.opening_hours.open_now;
+        info[RESULTS_PHOTO_URL] = photoUrl;
+        info[RESULTS_IS_OPEN] = isOpen;
+
+        results[i] = info
+    }
+
+    return resultsCopy;
+}
+
+
+/**
+ * Displays the restaurant information to the user.
+ * Shows a photo, restaurant name, if open, price level, and rating.
+ * @param {JSON} results 
+ */
 function displayResults(results) {
-    console.log("results.length:", results.length);
     var restaurantContainer = $(".restaurantDisplay");
     restaurantContainer.html("");
 
@@ -93,11 +123,12 @@ function displayResults(results) {
     for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
+        let isOpen = info.is_open ? "Open" : "Closed";
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
-        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
+        let photoUrl = info.photo_url;
+
 
         var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
@@ -105,7 +136,7 @@ function displayResults(results) {
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
 
-        var image = $("<img>").attr("src", icon);
+        var image = $("<img>").attr("src", photoUrl);
         figure.append(image);
         cardImage.append(figure);
 
