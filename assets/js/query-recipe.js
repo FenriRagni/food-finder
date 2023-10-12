@@ -32,7 +32,7 @@ function showRecipeResults(searchQuery) {
                 var recipeItemUl = $(recipeIdDocument).append("<ul></ul>"); 
                 recipeItemUl.append("<li>" + data.hits[i].recipe.cuisineType + "</li>")
                 recipeItemUl.append("<li>" + Math.round(data.hits[i].recipe.calories) + " calories</li>")
-                recipeItemUl.append('<li><a href = /food-finder/recipe_results.html?q=' + recipeId + '> Details</a></li>')
+                recipeItemUl.append('<li><a href = /recipe-details.html?q=' + recipeId + '> Details</a></li>')
                 $("#recipe_results").append("<img src=" + data.hits[i].recipe.images.SMALL.url + ">")
             }
         }
