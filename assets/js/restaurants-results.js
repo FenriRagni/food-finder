@@ -1,4 +1,6 @@
-const SEARCH_RESULTS = "restaurantResults"
+const SEARCH_RESULTS = "restaurantResults";
+const RESULTS_PHOTO_URL = "photo_url";
+const RESULTS_IS_OPEN = "is_open";
 
 $(function() {
     let results = loadFromStorage(SEARCH_RESULTS)
@@ -40,11 +42,11 @@ function displayResults(results) {
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
+        let isOpen = info[RESULTS_IS_OPEN] ? "Open" : "Closed";
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
-        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
+        let photo = info[RESULTS_PHOTO_URL];
 
         let card = $("<div>");
         card.addClass("card column is-3 mx-3 mt-3")
@@ -62,7 +64,7 @@ function displayResults(results) {
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
 
-        var image = $("<img>").attr("src", icon);
+        var image = $("<img>").attr("src", photo);
         figure.append(image);
         cardImage.append(figure);
 

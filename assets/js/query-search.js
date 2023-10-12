@@ -1,5 +1,7 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
 const SEARCH_RESULTS = "restaurantResults";
+const RESULTS_PHOTO_URL = "photo_url";
+const RESULTS_IS_OPEN = "is_open";
 const SHOW_INITIAL_RESTAURANTS = 4; // Determines how many restaurants to show on the front page
 
 var queryItem = $("#query-item");
@@ -101,8 +103,8 @@ function updateResults(results) {
         let info = results[i];
         let photoUrl = info.photos[0].getUrl({maxWidth: 500, maxHeight: 500});
         let isOpen = (info.opening_hours.isOpen()) ? info.opening_hours.isOpen() : info.opening_hours.open_now;
-        info["photo_url"] = photoUrl;
-        info["is_open"] = isOpen;
+        info[RESULTS_PHOTO_URL] = photoUrl;
+        info[RESULTS_IS_OPEN] = isOpen;
 
         results[i] = info
     }
