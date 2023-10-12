@@ -1,5 +1,10 @@
 # Food Finder app
 
+
+## Credits
+
+[Fresh food image](https://www.freepik.com/free-vector/restaurant-mural-wallpaper_10373272.htm#query=food%20graphic&position=4&from_view=keyword&track=ais)
+
 ## Resources
 
 [Browser Geolocation](https://www.w3schools.com/html/html5_geolocation.asp)

@@ -1,5 +1,6 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
 const SEARCH_RESULTS = "restaurantResults";
+const SHOW_INITIAL_RESTAURANTS = 4; // Determines how many restaurants to show on the front page
 
 var queryItem = $("#query-item");
 var queryLocation = $("#query-location");
@@ -54,7 +55,7 @@ function fetchGooglePlaces(keyword) {
         type: ['food']
     };
 
-    console.log("request:", request)
+    // console.log("request:", request)
 
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
@@ -70,21 +71,96 @@ function fetchGooglePlaces(keyword) {
         }
         
         results.push(searchOptions); // Add searchInfo to the end to use later
-        
+        displayResults(results);
+
         // Store results in local storage to bring to see-more-restaurants.html
         let stringifyResults = JSON.stringify(results);
-        console.log(stringifyResults)
+        // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
 
         // This is only here for testing purposes. This will occur when the "See more restaurants" button is clicked
-        window.location.href = "./see-more-restaurants.html"
-        queryItem.val(""); // Clear the input fields after going to the next page
-        queryLocation.val("");
+        // window.location.href = "./see-more-restaurants.html"
+        // queryItem.val(""); // Clear the input fields after going to the next page
+        // queryLocation.val("");
     });
 }
 
 
+function displayResults(results) {
+    console.log("results.length:", results.length);
+    var restaurantContainer = $(".restaurantDisplay");
+    restaurantContainer.html("");
 
+    // Only loop through a certain amount of times
+    for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
+        let info = results[i];
+        let name = info.name;
+        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
+        let priceLevel = buildPriceLevelStr(info.price_level);
+        let rating = info.rating;
+        let ratingsCount = info.user_ratings_total;
+        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
+
+        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
+        var resultCard = $("<div>").addClass("card");
+        
+        var cardImage = $("<div>").addClass("card-image");
+        var figure = $("<figure>").addClass("image is-4by3");
+
+        var image = $("<img>").attr("src", icon);
+        figure.append(image);
+        cardImage.append(figure);
+
+
+        var cardContent = $("<div>").addClass("card-content");
+        var mediaContent = $("<div>").addClass("media-content");
+
+        var cardTitle = $("<h2>");
+        cardTitle.addClass("title is-4");
+        cardTitle.text(name);
+
+        let isOpenEl = $("<p>");
+        isOpenEl.addClass("content");
+        isOpenEl.html(`is <strong>${isOpen}</strong>`)
+
+        let ratingEl = $("<p>");
+        ratingEl.addClass("content");
+        ratingEl.html(`<strong>${rating}</strong> /5 (${ratingsCount} total reviews)`)
+
+        let priceLevelEl = $("<p>");
+        priceLevelEl.addClass("content");
+        priceLevelEl.html(priceLevel);
+
+        mediaContent.append(cardTitle, isOpenEl, priceLevelEl, ratingEl);
+        
+        cardContent.append(mediaContent);
+        resultCard.append(cardImage, cardContent);
+        resultColumn.append(resultCard);
+        restaurantContainer.append(resultColumn); // Append to the container every iteration
+    }
+}
+
+function buildPriceLevelStr(priceLevel) {
+    switch (priceLevel) {
+        case 0:
+            return "Free"
+        
+        case 1:
+            return "<strong>$ </strong>"
+        
+        case 2:
+            return "<strong>$ $</strong>"
+    
+        case 3:
+            return "<strong>$ $ $</strong>"
+
+        case 4:
+            return "<strong>$ $ $ $</strong>"
+        
+        default:
+            return "<strong>$ $</strong>"
+    }
+}
 
 
 
