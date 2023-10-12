@@ -32,7 +32,7 @@ function displayResults(results) {
 
     let cardContainer = $("#container-cards");
     let cardDiv = $("<div>");
-    cardDiv.addClass("columns p-3");
+    cardDiv.addClass("columns p-3 mb-0");
 
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
@@ -43,7 +43,7 @@ function displayResults(results) {
         let ratingsCount = info.user_ratings_total;
 
         let card = $("<div>");
-        card.addClass("card column is-4 m-3")
+        card.addClass("card column is-4 mx-3 mt-3")
 
 
         let cardHeader = $("<div>");
