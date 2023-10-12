@@ -7,8 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/f96f0b7823.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />
 </head>
 
 <body>
@@ -32,6 +32,22 @@
     </section>
     <section>
         <div class="is-flex is-justify-content-center">
+            <div class="dropdown is-hoverable m-0">
+                <div class="dropdown-trigger">
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+                        <span class="icon is-small">
+                            <i class="fas fa-bookmark" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                    <div id="bookmark"class="dropdown-content">
+                        <div class="dropdown-item">
+                        No Bookmarks
+                        </div>
+                    </div>
+                </div>
+            </div>
             <form class="is-flex is-flex-direction-row ">
                 <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
                 <input type="text" id="query-location" class="input mx-3" placeholder="Location">

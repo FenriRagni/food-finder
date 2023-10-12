@@ -25,7 +25,9 @@ function showRecipeResults(searchQuery) {
             $("#recipe_results").text("There is no recipe matching your query. Search another menu.")
         } else {
             for (i = 0; i < 3; i++){
+                console.log("data: ", data);
                 var recipeId = data.hits[i].recipe.uri.split("_")[1];
+                console.log("recipeID: ", recipeId);
                 var recipeIdDocument = "#" + recipeId;
                 $("#recipe_results").append('<h3 id = "'+ recipeId + '">' + data.hits[i].recipe.label + '</h3>');
                 var recipeItemUl = $(recipeIdDocument).append("<ul></ul>"); 
