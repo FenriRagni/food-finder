@@ -8,9 +8,3 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-
-@media screen and (max-width: 1024px) {
-    #container-cards {
-        flex-direction: column;
-    }   
-}

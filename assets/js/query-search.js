@@ -1,11 +1,12 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
-const SEARCH_RESULTS = "searchResults"
+const SEARCH_RESULTS = "searchResults";
 
 var queryItem = $("#query-item");
 var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
 var deviceLocation = { lat: 0, lng: 0 }
 var searchLocation = { lat: 0, lng: 0 }
+var searchRadius = 25; // miles
 
 // Google services
 var gAutocomplete;
@@ -41,22 +42,32 @@ async function handleUpdateAutocomplete() {
 function fetchGooglePlaces(keyword) {
     // console.log("@fetchGooglePlaces")
     let location = new google.maps.LatLng(searchLocation.lat, searchLocation.lng);
+    let milesToMeters = Math.round(searchRadius * 1.609344) * 1000
 
     var request = {
         location: location,
-        radius: 1000, // In meters
         keyword: keyword,
-        // openNow: true,
+        radius: milesToMeters,
         rankBy: google.maps.places.RankBy.PROMINENCE,
         type: ['food']
     };
 
-    // console.log("request:", request)
+    console.log("request:", request)
 
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
-        if (status !== google.maps.places.PlacesServiceStatus.OK) return;
-        results.push(keyword); // Add search keyword to the end to use later
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+            console.error("couldn't get locations");
+            return
+        }
+
+        let searchOptions = {
+            keyword: keyword,
+            city: queryLocation.val(),
+            radius: searchRadius,
+        }
+        
+        results.push(searchOptions); // Add searchInfo to the end to use later
         
         // Store results in local storage to bring to see-more-restaurants.html
         let stringifyResults = JSON.stringify(results);

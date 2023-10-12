@@ -17,10 +17,18 @@ function loadFromStorage(key) {
 
 
 function displayResults(results) {
-    let keyword = results.pop()
+    let searchInfo = results.pop();
+    let keyword = searchInfo.keyword;
+    let city = searchInfo.city;
+    let radius = searchInfo.radius;
 
     let pageH1 = $("h1")
     pageH1.text("Showing " + results.length + " results for: " + keyword)
+
+    let pageH2 = $("<h2>");
+    pageH2.addClass("title is-3 has-text-primary has-text-centered")
+    pageH2.text("within " + radius + " mi in " + city)
+    pageH2.insertAfter(pageH1);
 
     let cardContainer = $("#container-cards");
     let cardDiv = $("<div>");
@@ -34,18 +42,14 @@ function displayResults(results) {
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
 
-        console.log("info:", info)
-        console.log("info:", info)
-        console.log("info:", info)
-
         let card = $("<div>");
-        card.addClass("card column is-3 m-3")
+        card.addClass("card column is-4 m-3")
 
 
         let cardHeader = $("<div>");
         cardHeader.addClass("card-header");
 
-        let cardTitle = $("<h2>");
+        let cardTitle = $("<h3>");
         cardTitle.addClass("card-header-title title is-3 is-centered");
         cardTitle.text(name)
 
@@ -53,8 +57,8 @@ function displayResults(results) {
 
 
         let cardContent = $("<div>");
-        cardContent.addClass("card-content");
-        
+        cardContent.addClass("card-content is-size-4");
+
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
         isOpenEl.html(`<strong>${isOpen}</strong>`)
@@ -85,18 +89,18 @@ function buildPriceLevelStr(priceLevel) {
             return "Free"
         
         case 1:
-            return "<strong>$ </strong> $ $ $"
+            return "<strong>$ </strong>"
         
         case 2:
-            return "<strong>$ $</strong> $ $"
+            return "<strong>$ $</strong>"
     
         case 3:
-            return "<strong>$ $ $</strong> $"
+            return "<strong>$ $ $</strong>"
 
         case 4:
             return "<strong>$ $ $ $</strong>"
         
         default:
-            return "<strong>$ $</strong> $ $"
+            return "<strong>$ $</strong>"
     }
 }
