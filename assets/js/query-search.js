@@ -7,6 +7,7 @@ var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
 var deviceLocation = { lat: 0, lng: 0 }
 var searchLocation = { lat: 0, lng: 0 }
+var searchRadius = 25; // Miles
 var h3Items = $("h3");
 var bookmarks = [];
 var bkList = $("#bookmark");
