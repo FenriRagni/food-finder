@@ -22,6 +22,9 @@ function displayResults(results) {
     let city = searchInfo.city;
     let radius = searchInfo.radius;
 
+    console.log("first result:", results[0])
+    console.log("placeId:", results[0].place_id)
+
     let pageH1 = $("h1")
     pageH1.text("Showing " + results.length + " restaurants results for: " + keyword)
 
@@ -111,3 +114,6 @@ function buildPriceLevelStr(priceLevel) {
             return "<strong>$ $</strong>"
     }
 }
+
+
+// https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJrTLr-GyuEmsRBfy61i59si0&fields=address_components&key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q

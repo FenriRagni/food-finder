@@ -53,7 +53,7 @@ function fetchGooglePlaces(keyword) {
         keyword: keyword,
         radius: milesToMeters,
         rankBy: google.maps.places.RankBy.PROMINENCE,
-        type: ['food']
+        type: ['food'],
     };
 
     // console.log("request:", request)
@@ -88,7 +88,8 @@ function fetchGooglePlaces(keyword) {
 
 
 function displayResults(results) {
-    console.log("results.length:", results.length);
+    console.log("@displayResults results:", results)
+
     var restaurantContainer = $(".restaurantDisplay");
     restaurantContainer.html("");
 
@@ -100,7 +101,7 @@ function displayResults(results) {
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
-        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
+        let photoUrl = results[i].photos[0].getUrl({maxWidth: 500, maxHeight: 500});
 
         var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
@@ -108,7 +109,7 @@ function displayResults(results) {
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
 
-        var image = $("<img>").attr("src", icon);
+        var image = $("<img>").attr("src", photoUrl);
         figure.append(image);
         cardImage.append(figure);
 
