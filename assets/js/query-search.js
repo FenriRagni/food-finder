@@ -2,6 +2,7 @@ const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
 const SEARCH_RESULTS = "restaurantResults";
 const RESULTS_PHOTO_URL = "photo_url";
 const RESULTS_IS_OPEN = "is_open";
+const RESULTS_NO_HOURS = "No hours listed"
 const SHOW_INITIAL_RESTAURANTS = 4; // Determines how many restaurants to show on the front page
 
 var queryItem = $("#query-item");
@@ -98,8 +99,18 @@ function updateResults(results) {
 
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
-        let photoUrl = info.photos[0].getUrl({maxWidth: 500, maxHeight: 500});
-        let isOpen = (info.opening_hours.isOpen()) ? info.opening_hours.isOpen() : info.opening_hours.open_now;
+
+        // Make undefined checks 
+        let photoUrl = info.icon;
+        if (info.photos) {
+            photoUrl = info.photos[0].getUrl({maxWidth: 500, maxHeight: 500});
+        }
+        
+        let isOpen = RESULTS_NO_HOURS;
+        if (info.opening_hours) {
+            isOpen = (info.opening_hours.isOpen()) ? info.opening_hours.isOpen() : info.opening_hours.open_now;
+        }
+        
         info[RESULTS_PHOTO_URL] = photoUrl;
         info[RESULTS_IS_OPEN] = isOpen;
 
@@ -123,7 +134,7 @@ function displayResults(results, searchOptions) {
     for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.is_open ? "Open" : "Closed";
+        let isOpen = buildIsOpen(info.is_open);
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
@@ -188,7 +199,7 @@ function displayResults(results, searchOptions) {
         })
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
-        isOpenEl.html(`is <strong>${isOpen}</strong>`)
+        isOpenEl.html(isOpen);
 
         let ratingEl = $("<p>");
         ratingEl.addClass("content");
@@ -213,7 +224,7 @@ function displayResults(results, searchOptions) {
 
         let cityNameNoSpace = "";
         let split = city.split(",")
-        console.log("split:", split)
+
         for (let i = 0; i < split.length; i++) {
             // First trim leading/trailing whitespace, if there's middle white space then replace with a +
             cityNameNoSpace += split[i].trim().replace(" ", "");
@@ -221,10 +232,27 @@ function displayResults(results, searchOptions) {
             // Add commas to all except the last of the string
             if (i < split.length - 1) cityNameNoSpace += "%20";
         }
-        console.log("cityNameNoSpace:", cityNameNoSpace)
 
         let query = `${keyword}&radius=${radius}&location=${cityNameNoSpace}`
         restaurantContainer.append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-restaurants.html?q=' + query +'">See more restaurants<p></div>');
+    }
+}
+
+
+/**
+ * Determines if a place's hours is listed or not, if so then say if place is open or closed.
+ * @param {String} isOpen 
+ * @returns String if restaurant is open, closed, or has no hours listed
+ */
+function buildIsOpen(isOpen) {
+    if (isOpen === RESULTS_NO_HOURS) {
+        return RESULTS_NO_HOURS;
+    }
+
+    if (isOpen) {
+        return "is <strong>Open</strong>";
+    } else {
+        return  "is <strong>Closed</strong>";
     }
 }
 

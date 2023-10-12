@@ -1,6 +1,7 @@
 const SEARCH_RESULTS = "restaurantResults";
 const RESULTS_PHOTO_URL = "photo_url";
 const RESULTS_IS_OPEN = "is_open";
+const RESULTS_NO_HOURS = "No hours listed"
 
 $(function() {
     let results = loadFromStorage(SEARCH_RESULTS)
@@ -39,7 +40,7 @@ function displayResults(results) {
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info[RESULTS_IS_OPEN] ? "Open" : "Closed";
+        let isOpen = buildIsOpen(info.is_open);
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
@@ -110,7 +111,7 @@ function displayResults(results) {
 
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
-        isOpenEl.html(`is <strong>${isOpen}</strong>`)
+        isOpenEl.html(isOpen)
 
         let ratingEl = $("<p>");
         ratingEl.addClass("content");
@@ -130,6 +131,23 @@ function displayResults(results) {
 
     cardContainer.append(cardDiv)
 
+}
+
+/**
+ * Determines if a place's hours is listed or not, if so then say if place is open or closed.
+ * @param {String} isOpen 
+ * @returns String if restaurant is open, closed, or has no hours listed
+ */
+function buildIsOpen(isOpen) {
+    if (isOpen === RESULTS_NO_HOURS) {
+        return RESULTS_NO_HOURS;
+    }
+
+    if (isOpen) {
+        return "is <strong>Open</strong>";
+    } else {
+        return  "is <strong>Closed</strong>";
+    }
 }
 
 function buildPriceLevelStr(priceLevel) {
