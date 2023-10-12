@@ -126,6 +126,7 @@ $(document).ready(function(){
             var obj = {};
             obj["name"] = clickBtn.parent().text().split("\n")[0];
             obj["id"] = clickBtn.parent().data("id");
+            obj["type"] = clickBtn.parent().data("type");
             console.log("object: ", obj);
             bookmarks.push(obj);
             console.log("bookmark array: ", bookmarks);
@@ -166,7 +167,9 @@ $(document).ready(function(){
             if(bkList.length <= bookmarks.length) {
                 bkList.text("");
                 for(var x = 0; x < bookmarks.length; x++){
+                    // if(bookmarks[x].type === "recipe")
                     bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                    //else
                 }
             }
             
