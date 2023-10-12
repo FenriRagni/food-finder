@@ -87,7 +87,7 @@ function fetchGooglePlaces(keyword) {
 function displayResults(results) {
     console.log("results.length:", results.length);
     var restaurantContainer = $(".restaurantDisplay");
-    restaurantContainer.val("");
+    restaurantContainer.html("");
 
     // Only loop through a certain amount of times
     for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
@@ -99,7 +99,7 @@ function displayResults(results) {
         let ratingsCount = info.user_ratings_total;
         let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
 
-        var resultColumn = $("<div>").addClass("column is-3 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
         
         var cardImage = $("<div>").addClass("card-image");

@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/style.css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic"
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic"
         rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/f96f0b7823.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -32,9 +32,25 @@
             <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
         </figure>
     </section>
-    <section class="section" >
+    <section class="section">
         <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
+
+
+            <div class="dropdown is-hoverable m-0">
+                <div class="dropdown-trigger">
+                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+                        <span class="icon is-small">
+                            <i class="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                    <div id="bookmark"class="dropdown-content">
+                    </div>
+                </div>
+            </div>
             <form class="is-flex is-flex-direction-row " >
+
                 <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
                 <input type="text" id="query-location" class="input mx-3" placeholder="Location">
                 <p id="debug-text"></p>
@@ -43,33 +59,16 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="">
         <div class="container">
-
-
-            <div class="columns is-desktop recipeDisplay">
+            <div class="columns">            
+                <div class="column is-6 is-desktop recipeDisplay"></div>
+                <div class="column is-6 restaurantDisplay"></div>
             </div>
-
-            <div class="columns is-desktop restaurantDisplay"></div>
-            
-
-
-
-            <!-- <div class="columns">
-            <div class="column is-6 recipeDisplay"> 
-                <div class="card">
-                    
-                </div>
-            </div>
-            <div class="column is-6 recipeDisplay"> 
-
-            </div>
-            </div> -->
-        
-
-    </section> 
-
+        </div>
+    </section>
     <div id="map"></div>
+
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -83,43 +82,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-            <!-- <section class="">
-                    <div class="container">
-                        <div class="columns">
-
-                            <div class="column is-half resultDisplay">
-                                <div class="card is-6">
-                                    <div class="card-image">
-                                        <figure class="image is-4by3">
-                                            <img src="#" alt="Placeholder image">
-                                        </figure>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="media-content">
-                                            <p class="title is-4">Recipe 1</p>
-                                            <p class="subtitle is-6">Subtitlle</p>
-                                            <ul>
-                                                <li class="has-text-black"> hello</li>
-                                                <li> This is blue</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </section> --> -->
