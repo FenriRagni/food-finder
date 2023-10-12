@@ -7,7 +7,7 @@ function getSearchQuery() {
         document.location.replace("./index.html");
     }
 };
-
+getSearchResults('bdbd520ef98fb99c4b0951e6a9fc6934');
 function getSearchResults(recipeId){
     var requestUrl = "https://api.edamam.com/api/recipes/v2/by-uri?type=public&uri=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_" + recipeId + "&app_id=f77c7e0e&app_key=43e8d41a5b2ed56c8d6d782c1d900e3e";
     var temptData;
@@ -16,17 +16,15 @@ function getSearchResults(recipeId){
             return response.json();
         })
         .then(function (data) {
-            var title = $('#titile');
-            var image = $('#image');
-            var name = $('#name');
             temptData=data;
+            console.log(temptData);
 
-            var label = temprData.hits[0].recipe.label;
+            var label = temptData.hits[0].recipe.label;
             var imageUrl = temptData.hits[0].recipe.images.SMALL.url;
-            var recipe = Math.round(temptData.hits[0].recipe.calories);
+            var calories = Math.round(temptData.hits[0].recipe.calories);
             var cuisine = temptData.hits[0].recipe.cuisineType;
             var health = temptData.hits[0].recipe.healthLabels;
-
+            data4Recipe(label, imageUrl, cuisine, health, calories);
 
             // console.log(temptData.hits[0].recipe);
             // name.text();
@@ -44,29 +42,35 @@ function getSearchResults(recipeId){
         );
 };
 
-function getData(){
+function data4Recipe(label, imageUrl, cuisine, health, recipe){
     var title = $('#titile');
     var image = $('#image');
     var name = $('#name');
-      name.text(data.hits[0].recipe.label);
-}
+    var shortDescription = $('#shortDescription');
+    name.text(label);
+    image.attr('src',imageUrl);
+    shortDescription.append("<p>" + cuisine +"</p>");
+    shortDescription.append("<p>" + health +"</p>");
+    shortDescription.append("<p>" + recipe +"</p>");
+    
+};
 
 
-           
+
             
 
 
 
-            console.log(data.hits[0].recipe);
+            // console.log(data.hits[0].recipe);
           
-            title.append("<img src=" + data.hits[0].recipe.images.SMALL.url + ">")
-            var recipeDetails = $("h3").append("<ul></ul>");
-            recipeDetails.append("<li> Calories: " + Math.round(data.hits[0].recipe.calories) + " calories</>");
-            recipeDetails.append("<li> Type: " + data.hits[0].recipe.cuisineType + "</li>");
-            recipeDetails.append("<li> Diet: " + data.hits[0].recipe.healthLabels + "</li>");
-            for (i = 0; i < data.hits[0].recipe.ingredientLines.length; i++) {
-                var ingredients = $("h4").append("<ul></ul>");
-                ingredients.append("<li>" + data.hits[0].recipe.ingredientLines[i] + "</li>");
-            };
-            $("#recipe_link").html('<a href ="' + data.hits[0].recipe.url + '">Check out the cooking steps </a>');
-            }
+            // title.append("<img src=" + data.hits[0].recipe.images.SMALL.url + ">")
+            // var recipeDetails = $("h3").append("<ul></ul>");
+            // recipeDetails.append("<li> Calories: " + Math.round(data.hits[0].recipe.calories) + " calories</>");
+            // recipeDetails.append("<li> Type: " + data.hits[0].recipe.cuisineType + "</li>");
+            // recipeDetails.append("<li> Diet: " + data.hits[0].recipe.healthLabels + "</li>");
+            // for (i = 0; i < data.hits[0].recipe.ingredientLines.length; i++) {
+            //     var ingredients = $("h4").append("<ul></ul>");
+            //     ingredients.append("<li>" + data.hits[0].recipe.ingredientLines[i] + "</li>");
+            // };
+            // $("#recipe_link").html('<a href ="' + data.hits[0].recipe.url + '">Check out the cooking steps </a>');
+            // }
