@@ -18,7 +18,7 @@ function getSearchResults(searchQuery) {
         if (data.hits.length === 0) {
             $("#card-header-title").text("There is no recipe matching your query. Search another menu.")
         } else {
-            $("h1").text("Showing " + data.hits.length + " results for: " + searchQuery)
+            $("h1").text("Showing " + data.hits.length + " recipe results for: " + searchQuery)
             let cardContainer = $("#container-cards");
             let cardDiv = $("<div>");
             cardDiv.addClass("columns p-3 mb-0");
@@ -31,16 +31,54 @@ function getSearchResults(searchQuery) {
                 var imageSouce = data.hits[i].recipe.images.SMALL.url; 
 
                 let card = $("<div>");
-                card.addClass("card column is-4 mx-3 mt-3")
+                card.addClass("card column is-3 mx-3 mt-3")
                 
                 let cardHeader = $("<div>");
                 cardHeader.addClass("card-header");
                 
                 let cardTitle = $("<h3>");
-                cardTitle.addClass("card-header-title title is-3 is-centered");
+                cardTitle.addClass("card-header-title title my-0 is-3 is-centered");
                 cardTitle.text(name)
-
+                var icon = $('<i class="fa is-pulled-right more-icon" data-id="'+ recipeId + '" data-type="recipe" data-name="' + name +'"/>')
+                if(filterBookmarks(recipeId) >= 0){
+                    icon.data("favorite", true);
+                    icon.addClass("fa-bookmark")
+                }
+                else{
+                    icon.data("favorite", false);
+                    icon.addClass("fa-bookmark-o")
+                }
+                
+                icon.on("click", function(){
+                    var item = $(this);
+                    console.log("icon: ", item);
+                    if(item.data("favorite")===false) {
+                        item.data("favorite", true);
+                        console.log("favorite: ", item.data("favorite"));
+                        var obj = {};
+                        obj["name"] = item.data("name");
+                        obj["id"] = item.data("id");
+                        obj["type"] = item.data("type");
+                        console.log("object: ", obj);
+                        bookmarks.push(obj);
+                        console.log("bookmark array: ", bookmarks);
+                        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                        item.removeClass("fa-bookmark-o");
+                        item.addClass("fa-bookmark");
+                        loadBookmarks();
+                    }
+                    else{
+                        item.data("favorite", false);
+                        item.removeClass("fa-bookmark");
+                        item.addClass("fa-bookmark-o");
+                        bookmarks.splice(filterBookmarks(item.data("id")),1);
+                        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                        loadBookmarks();
+                        
+                    }
+                })
                 cardHeader.append(cardTitle);
+                cardHeader.append(icon);
                 let cardContent = $("<div>");
                 cardContent.addClass("card-content is-size-4");
 
@@ -48,28 +86,28 @@ function getSearchResults(searchQuery) {
                 cardImage.addClass("card-image");
 
                 let figure = $("<figure>");
-                figure.addClass('image is-128x128');
-                figure.html('<img src = "'+ imageSouce + '">');
+                figure.addClass('image');
+                figure.html('<img style="border-radius:5%" src = "'+ imageSouce + '">');
                 cardImage.append(figure);
 
                 let descriptions = $("<ul>");
                 descriptions.addClass("content");
                 
                 let cuisine = $("<li>");
-                cuisine.html("Type: " + cuisineType);
+                cuisine.html("<b>Type</b>: " + cuisineType);
 
                 let mealType = $("<li>");
-                mealType.html("Good for: " + mealTypeData);
+                mealType.html("<b>Good for</b>: " + mealTypeData);
 
                 let calorie = $("<li>");
-                calorie.html(calorieData + " calorie");
+                calorie.html(calorieData + " calories");
 
                 let detailsLink = $("<li>");
-                detailsLink.html('<a href = /recipe-details.html?q=' + recipeId + '> Details</a>');
+                detailsLink.html('<a href = "https://fenriragni.github.io/food-finder/recipe-details.html?=' + recipeId + '"> Details</a>');
 
                 descriptions.append(cuisine,mealType,calorie,detailsLink)
-                cardContent.append(cardImage,descriptions);
-                card.append(cardHeader, cardContent);
+                cardContent.append(descriptions);
+                card.append(cardImage,cardHeader, cardContent);
                 cardDiv.append(card);
                 }    
             cardContainer.append(cardDiv)
@@ -77,5 +115,7 @@ function getSearchResults(searchQuery) {
         })
     } 
 
-getSearchQuery();
+    
 
+getSearchQuery();
+loadBookmarks();

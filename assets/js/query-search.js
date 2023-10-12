@@ -1,5 +1,7 @@
 const GOOGLE = "AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q";
 const SEARCH_RESULTS = "restaurantResults";
+const RESULTS_PHOTO_URL = "photo_url";
+const RESULTS_IS_OPEN = "is_open";
 const SHOW_INITIAL_RESTAURANTS = 4; // Determines how many restaurants to show on the front page
 
 var queryItem = $("#query-item");
@@ -8,9 +10,6 @@ var buttonSearch = $("#button-search");
 var deviceLocation = { lat: 0, lng: 0 }
 var searchLocation = { lat: 0, lng: 0 }
 var searchRadius = 25; // Miles
-var h3Items = $("h3");
-var bookmarks = [];
-var bkList = $("#bookmark");
 
 // Google services
 var gAutocomplete;
@@ -53,11 +52,11 @@ function fetchGooglePlaces(keyword) {
         keyword: keyword,
         radius: milesToMeters,
         rankBy: google.maps.places.RankBy.PROMINENCE,
-        type: ['food']
+        type: ['food'],
     };
 
     // console.log("request:", request)
-
+    
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -70,12 +69,14 @@ function fetchGooglePlaces(keyword) {
             city: queryLocation.val(),
             radius: searchRadius,
         }
+
+        let updatedResults = updateResults(results);
+        displayResults(updatedResults, searchOptions);
         
-        results.push(searchOptions); // Add searchInfo to the end to use later
-        displayResults(results);
+        updatedResults.push(searchOptions); // Add searchInfo to the end to use later
 
         // Store results in local storage to bring to see-more-restaurants.html
-        let stringifyResults = JSON.stringify(results);
+        let stringifyResults = JSON.stringify(updatedResults);
         // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
 
@@ -87,8 +88,34 @@ function fetchGooglePlaces(keyword) {
 }
 
 
-function displayResults(results) {
-    console.log("results.length:", results.length);
+/**
+ * Updates each google place result with a photo url and if its open or not
+ * @param {JSON} results 
+ * @returns updated version of the JSON with the photo url and if restaurant is currently open.
+ */
+function updateResults(results) {
+    let resultsCopy = results;
+
+    for (let i = 0; i < results.length; i++) {
+        let info = results[i];
+        let photoUrl = info.photos[0].getUrl({maxWidth: 500, maxHeight: 500});
+        let isOpen = (info.opening_hours.isOpen()) ? info.opening_hours.isOpen() : info.opening_hours.open_now;
+        info[RESULTS_PHOTO_URL] = photoUrl;
+        info[RESULTS_IS_OPEN] = isOpen;
+
+        results[i] = info
+    }
+
+    return resultsCopy;
+}
+
+
+/**
+ * Displays the restaurant information to the user.
+ * Shows a photo, restaurant name, if open, price level, and rating.
+ * @param {JSON} results 
+ */
+function displayResults(results, searchOptions) {
     var restaurantContainer = $(".restaurantDisplay");
     restaurantContainer.html("");
 
@@ -96,11 +123,12 @@ function displayResults(results) {
     for (let i = 0; i < SHOW_INITIAL_RESTAURANTS; i++) {
         let info = results[i];
         let name = info.name;
-        let isOpen = info.opening_hours.open_now ? "Open" : "Closed";
+        let isOpen = info.is_open ? "Open" : "Closed";
         let priceLevel = buildPriceLevelStr(info.price_level);
         let rating = info.rating;
         let ratingsCount = info.user_ratings_total;
-        let icon = info.icon; // PLACE HOLDER UNTIL ACTUAL RESTAURANT PHOTO
+        let photoUrl = info.photo_url;
+
 
         var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
@@ -108,7 +136,7 @@ function displayResults(results) {
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
 
-        var image = $("<img>").attr("src", icon);
+        var image = $("<img>").attr("src", photoUrl);
         figure.append(image);
         cardImage.append(figure);
 
@@ -119,7 +147,45 @@ function displayResults(results) {
         var cardTitle = $("<h2>");
         cardTitle.addClass("title is-4");
         cardTitle.text(name);
-
+        var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
+        console.log("bookIcon: ", bookIcon);
+        if(filterBookmarks(results[i].place_id) >= 0){
+            bookIcon.data("favorite", true);
+            bookIcon.addClass("fa-bookmark")
+        }
+        else{
+            bookIcon.data("favorite", false);
+            bookIcon.addClass("fa-bookmark-o")
+        }
+        cardTitle.append(bookIcon);
+        bookIcon.on("click", function(){
+            var item = $(this);
+            console.log("icon: ", item);
+            if(item.data("favorite")===false) {
+                item.data("favorite", true);
+                console.log("favorite: ", item.data("favorite"));
+                var obj = {};
+                obj["name"] = item.data("name");
+                obj["id"] = item.data("id");
+                obj["type"] = item.data("type");
+                console.log("object: ", obj);
+                bookmarks.push(obj);
+                console.log("bookmark array: ", bookmarks);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
+                loadBookmarks();
+            }
+            else{
+                item.data("favorite", false);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                loadBookmarks();
+                
+            }
+        })
         let isOpenEl = $("<p>");
         isOpenEl.addClass("content");
         isOpenEl.html(`is <strong>${isOpen}</strong>`)
@@ -138,6 +204,27 @@ function displayResults(results) {
         resultCard.append(cardImage, cardContent);
         resultColumn.append(resultCard);
         restaurantContainer.append(resultColumn); // Append to the container every iteration
+    }
+
+    if (results.length > 0) {
+        let keyword = searchOptions.keyword;
+        let radius = searchOptions.radius;
+        let city = searchOptions.city;
+
+        let cityNameNoSpace = "";
+        let split = city.split(",")
+        console.log("split:", split)
+        for (let i = 0; i < split.length; i++) {
+            // First trim leading/trailing whitespace, if there's middle white space then replace with a +
+            cityNameNoSpace += split[i].trim().replace(" ", "");
+    
+            // Add commas to all except the last of the string
+            if (i < split.length - 1) cityNameNoSpace += "%20";
+        }
+        console.log("cityNameNoSpace:", cityNameNoSpace)
+
+        let query = `${keyword}&radius=${radius}&location=${cityNameNoSpace}`
+        restaurantContainer.append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-restaurants.html?q=' + query +'">See more restaurants<p></div>');
     }
 }
 
@@ -211,67 +298,3 @@ function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
     deviceLocation.lng = position.coords.longitude;
 }
-
-$(document).ready(function(){
-    loadBookmarks();
-
-    h3Items.on("click", "button", function(){
-        clickBtn = $(this);
-        console.log("button clicked!");
-        console.log("This: ", clickBtn.data("favorite"));
-        if(clickBtn.data("favorite")===false){
-            clickBtn.data("favorite", true);
-            console.log("favorite: ", clickBtn.data("favorite"));
-            var obj = {};
-            obj["name"] = clickBtn.parent().text().split("\n")[0];
-            obj["id"] = clickBtn.parent().data("id");
-            obj["type"] = clickBtn.parent().data("type");
-            console.log("object: ", obj);
-            bookmarks.push(obj);
-            console.log("bookmark array: ", bookmarks);
-            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-            clickBtn.children().children().removeClass("fa-bookmark-o");
-            clickBtn.children().children().addClass("fa-bookmark");
-            loadBookmarks();
-            
-        }
-        else{
-            clickBtn.data("favorite", false);
-            clickBtn.children().children().removeClass("fa-bookmark");
-            clickBtn.children().children().addClass("fa-bookmark-o");
-            bookmarks.splice(filterBookmarks(clickBtn.parent().text().split("\n")[0]),1);
-            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-            loadBookmarks();
-            
-        }
-    })
-    function filterBookmarks(name){
-        for(var x = 0; x < bookmarks.length; x++) {
-            if(bookmarks[x].name === name){
-                return x;
-            }
-        }
-        return -1;
-    }
-
-    function loadBookmarks(){
-        bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-        console.log("Bookmarks: ", bookmarks);
-        if(bookmarks === null || bookmarks.length === 0) {
-            bookmarks = [];
-            bkList.text("");
-            bkList.append($('<div class="dropdown-item">No Bookmarks</div>'));
-        }
-        else{
-            if(bkList.length <= bookmarks.length) {
-                bkList.text("");
-                for(var x = 0; x < bookmarks.length; x++){
-                    // if(bookmarks[x].type === "recipe")
-                    bkList.append($('<div class="dropdown-item"><a href= "recipe_results.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
-                    //else
-                }
-            }
-            
-        }
-    }
-});
