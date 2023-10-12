@@ -131,15 +131,15 @@ $(document).ready(function(){
             bookmarks.push(obj);
             console.log("bookmark array: ", bookmarks);
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-            clickBtn.children().children().removeClass("fa-heart-o");
-            clickBtn.children().children().addClass("fa-heart");
+            clickBtn.children().children().removeClass("fa-bookmark-o");
+            clickBtn.children().children().addClass("fa-bookmark");
             loadBookmarks();
             
         }
         else{
             clickBtn.data("favorite", false);
-            clickBtn.children().children().removeClass("fa-heart");
-            clickBtn.children().children().addClass("fa-heart-o");
+            clickBtn.children().children().removeClass("fa-bookmark");
+            clickBtn.children().children().addClass("fa-bookmark-o");
             bookmarks.splice(filterBookmarks(clickBtn.parent().text().split("\n")[0]),1);
             localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
             loadBookmarks();
