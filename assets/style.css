@@ -82,6 +82,10 @@ body {
     width: 443px;
 }
 
+#morerecipeimage{
+    max-width: 100%;
+}
+
 form {
     width: 75%;
 }

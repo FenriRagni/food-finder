@@ -29,16 +29,14 @@ function showRecipeResults(searchQuery) {
                     "There is no recipe matching your query. Search another menu."
                 );
             } else {
+                $("#recipe_results").children().remove();
                 for (i = 0; i < 4; i++) {
                     var recipeId = data.hits[i].recipe.uri.split("_")[1];
                     var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE LABEL SOURCE
                     var extractCuiseType = data.hits[i].recipe.cuisineType;
                     crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
-                    console.log("The Recipe origin is " + crusinetype);
                     var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
                     var ingredient = data.hits[i].recipe.ingredientLines;
-
-
                     // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
                     RecipecardGenerator(recipeTitle, crusinetype, imageSouce);
                 }
@@ -51,7 +49,7 @@ function showRecipeResults(searchQuery) {
     // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
     // THIS FUNCTION WILL TAKE IN TITLE, CARD TEXT CONTENT AND IMAGE URL
     function RecipecardGenerator(title, subtitle, imagehtml) {
-        var resultColumn = $("<div>").addClass("column is-3 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
         var resultCard = $("<div>").addClass("card");
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
