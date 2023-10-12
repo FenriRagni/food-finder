@@ -1,15 +1,16 @@
 :root{
-    --main-color: rgba(114, 130, 112, 0.956);
+    --main-color: rgba(43, 45, 43, 0);
 }
 *{
     font-family: lato;
+    color: white;
 }
 body {
-    background-color: rgba(73, 46, 46, 0.902);
+    background-color: rgba(31, 22, 22, 0.906);
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    height: 2000px;
+    height: 3000px;
 }
 
 #logo {
@@ -20,7 +21,7 @@ body {
 .hero .title {
     font-weight: 700;
     font-size: 60px;
-    color: #241d18;
+    color: #3cca96;
 }
 
 #header {
@@ -32,7 +33,7 @@ body {
 }
 
 #welcomePhoto {
-    width: 500px;
+    width: 1200px;
     margin: auto;
     margin-top: 30px;
     border-radius: 30px;
@@ -43,7 +44,7 @@ body {
 }
 
 .mainContent {
-    width: 1200px;
+    width: 1400px;
     margin: auto;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -73,4 +74,16 @@ body {
 
 form {
     width: 75%;
+}
+
+.resultDisplay {
+    margin: 12px;
+    border-radius: 20px;
+}
+.card-content {
+    margin-bottom: 30px;
+}
+li {
+    color: black;
+    list-style: none;
 }
