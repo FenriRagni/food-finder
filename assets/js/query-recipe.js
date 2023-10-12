@@ -5,6 +5,7 @@ var bkList = $("#bookmark");
 
 $(function () {
     buttonSearch.on("click", searchClick);
+    loadBookmarks();
 });
 
 function searchClick(event) {
@@ -71,7 +72,13 @@ function showRecipeResults(searchQuery) {
         recipeBox.attr("class","ingredient")
         figure.append($("<img>").attr("src", imagehtml));
         cardTitle.text(title);
-        var icon = $('<i class="fa fa-bookmark-o is-pulled-right" data-favorite="false" data-id="'+ recipeId + '" data-type="recipe" data-name="' + title +'"/>')
+        var icon = $('<i class="fa fa-bookmark-o is-pulled-right" data-id="'+ recipeId + '" data-type="recipe" data-name="' + title +'"/>')
+        if(filterBookmarks(title) > 0){
+            icon.data("favorite", true);
+        }
+        else{
+            icon.data("favorite", false);
+        }
         cardTitle.append(icon);
         icon.on("click", function(){
             var item = $(this);
