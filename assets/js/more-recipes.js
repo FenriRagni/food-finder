@@ -62,10 +62,10 @@ function getSearchResults(searchQuery) {
                 mealType.html("<b>Good for</b>: " + mealTypeData);
 
                 let calorie = $("<li>");
-                calorie.html(calorieData + " calorie");
+                calorie.html(calorieData + " calories");
 
                 let detailsLink = $("<li>");
-                detailsLink.html('<a href = /recipe-details.html?q=' + recipeId + '> Details</a>');
+                detailsLink.html('<a href = "https://fenriragni.github.io/food-finder/recipe-details.html?=' + recipeId + '"> Details</a>');
 
                 descriptions.append(cuisine,mealType,calorie,detailsLink)
                 cardContent.append(descriptions);
