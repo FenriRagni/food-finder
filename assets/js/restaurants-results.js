@@ -23,7 +23,7 @@ function displayResults(results) {
     let radius = searchInfo.radius;
 
     let pageH1 = $("h1")
-    pageH1.text("Showing " + results.length + " results for: " + keyword)
+    pageH1.text("Showing " + results.length + " restaurants results for: " + keyword)
 
     let pageH2 = $("<h2>");
     pageH2.addClass("title is-3 has-text-primary has-text-centered")

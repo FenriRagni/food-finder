@@ -35,7 +35,7 @@ function showRecipeResults(searchQuery) {
                 $("#recipe_results").children().remove();
                 for (i = 0; i < 4; i++) {
                     var recipeId = data.hits[i].recipe.uri.split("_")[1];
-                    var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE LABEL SOURCE
+                    var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE NAME SOURCE
                     var extractCuiseType = data.hits[i].recipe.cuisineType;
                     crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
                     var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
