@@ -32,8 +32,10 @@
             <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
         </figure>
     </section>
-    <section class="section" >
+    <section class="section">
         <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
+
+
             <div class="dropdown is-hoverable m-0">
                 <div class="dropdown-trigger">
                     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
@@ -48,6 +50,7 @@
                 </div>
             </div>
             <form class="is-flex is-flex-direction-row " >
+
                 <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
                 <input type="text" id="query-location" class="input mx-3" placeholder="Location">
                 <p id="debug-text"></p>
@@ -60,12 +63,11 @@
         <div class="container">
 
 
-            <div class="columns is-desktop recipeDisplay">
-            </div>
 
-            <div class="columns">
 
-                <div class="column is-3 resultDisplay">
+            <div class="columns">            
+                <div class="column is-6 is-desktop recipeDisplay"></div>
+                <div class="column is-6 restaurantDisplay">
                     <div class="card is-6">
                         <div class="card-image">
                             <figure class="image is-4by3">
@@ -83,106 +85,71 @@
                             </div>
                         </div>
 
-
+                        
                     </div>
-
-                </div>
-                <div class="column is-3 resultDisplay">
-                    <div class="card is-6">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="#" alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media-content">
-                                <p class="title is-4">Location 2</p>
-                                <p class="subtitle is-6">Subtitlle</p>
-                                <ul>
-                                    <li class="has-text-black"> hello</li>
-                                    <li> This is blue</li>
-                                </ul>
+                        <div class="card is-3">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="#" alt="Placeholder image">
+                                </figure>
                             </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-                <div class="column is-3 resultDisplay">
-                    <div class="card is-6">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="#" alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media-content">
-                                <p class="title is-4">Location 3</p>
-                                <p class="subtitle is-6"> Subtitle</p>
-                                <ul>
-                                    <li class="has-text-black"> hello</li>
-                                    <li> This is blue</li>
-                                </ul>
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <p class="title is-4">Location 2</p>
+                                    <p class="subtitle is-6">Subtitlle</p>
+                                    <ul>
+                                        <li class="has-text-black"> hello</li>
+                                        <li> This is blue</li>
+                                    </ul>
+                                </div>
                             </div>
+
                         </div>
-
-
-                    </div>
-
-                </div>
-                <div class="column is-3 resultDisplay">
-                    <div class="card is-6">
-                        <div class="card-image">
-                            <figure class="image is-4by3">
-                                <img src="#" alt="Placeholder image">
-                            </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media-content">
-                                <p class="title is-4">Location 4</p>
-                                <p class="subtitle is-6">Subtitlle</p>
-                                <ul>
-                                    <li class="has-text-black"> hello</li>
-                                    <li> This is blue</li>
-                                </ul>
+                        <div class="card is-6">
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="#" alt="Placeholder image">
+                                </figure>
                             </div>
+                            <div class="card-content">
+                                <div class="media-content">
+                                    <p class="title is-4">Location 3</p>
+                                    <p class="subtitle is-6"> Subtitle</p>
+                                    <ul>
+                                        <li class="has-text-black"> hello</li>
+                                        <li> This is blue</li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
+                        <div class="column is-3 resultDisplay">
+                    </div>
+                    <div class="column is-3 resultDisplay">
 
 
                     </div>
 
                 </div>
-            </div>
-            
-
-
-
-            <!-- <div class="columns">
-            <div class="column is-6 recipeDisplay"> 
-                <div class="card">
-                    
-                </div>
-            </div>
-            <div class="column is-6 recipeDisplay"> 
 
             </div>
-            </div> -->
-        
-
-</section> 
-                 <div id="map"></div>
 
 
-                <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-                    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-                <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initGoogle">
-                    </script>
+    </section>
+    <div id="map"></div>
 
-                <script src="./assets/js/query-recipe.js"></script>
-                <script src="./assets/js/query-search.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initGoogle">
+        </script>
+
+    <script src="./assets/js/query-recipe.js"></script>
+    <script src="./assets/js/query-search.js"></script>
 </body>
 
 </html>
+
