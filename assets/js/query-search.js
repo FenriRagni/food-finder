@@ -64,14 +64,14 @@ function fetchGooglePlaces(keyword) {
             return
         }
 
-        let updatedResults = updateResults(results);
-        displayResults(updatedResults);
-
         let searchOptions = {
             keyword: keyword,
             city: queryLocation.val(),
             radius: searchRadius,
         }
+
+        let updatedResults = updateResults(results);
+        displayResults(updatedResults, searchOptions);
         
         updatedResults.push(searchOptions); // Add searchInfo to the end to use later
 
@@ -115,7 +115,7 @@ function updateResults(results) {
  * Shows a photo, restaurant name, if open, price level, and rating.
  * @param {JSON} results 
  */
-function displayResults(results) {
+function displayResults(results, searchOptions) {
     var restaurantContainer = $(".restaurantDisplay");
     restaurantContainer.html("");
 
@@ -204,6 +204,27 @@ function displayResults(results) {
         resultCard.append(cardImage, cardContent);
         resultColumn.append(resultCard);
         restaurantContainer.append(resultColumn); // Append to the container every iteration
+    }
+
+    if (results.length > 0) {
+        let keyword = searchOptions.keyword;
+        let radius = searchOptions.radius;
+        let city = searchOptions.city;
+
+        let cityNameNoSpace = "";
+        let split = city.split(",")
+        console.log("split:", split)
+        for (let i = 0; i < split.length; i++) {
+            // First trim leading/trailing whitespace, if there's middle white space then replace with a +
+            cityNameNoSpace += split[i].trim().replace(" ", "");
+    
+            // Add commas to all except the last of the string
+            if (i < split.length - 1) cityNameNoSpace += "%20";
+        }
+        console.log("cityNameNoSpace:", cityNameNoSpace)
+
+        let query = `${keyword}&radius=${radius}&location=${cityNameNoSpace}`
+        restaurantContainer.append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-restaurants.html?q=' + query +'">See more restaurants<p></div>');
     }
 }
 
