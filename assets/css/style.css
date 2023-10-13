@@ -15,15 +15,55 @@ body {
     min-height: 1500px;
 }
 
-#logo {
-    width: 50px;
-    height: 50px;
+form {
+    width: 75%;
+}
+
+li {
+    color: rgb(80, 71, 71);
+    list-style: none;
+}
+
+a:hover {
+    color: rgb(139, 194, 228);
 }
 
 .hero .title {
     font-weight: 700;
     font-size: 60px;
     color: #c3c3c3;
+}
+
+.welcomePhoto {
+    padding-bottom: 50px;
+}
+
+.mainContent {
+    width: 1400px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 30px;
+    background-color: rgb(22, 22, 19);
+    padding: 20px;
+}
+
+.resultDisplay {
+    margin: 12px;
+    border-radius: 20px;
+}
+
+.card-content {
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    box-shadow: 4px 8px 30px rgb(30, 29, 29);
+}
+
+#logo {
+    width: 50px;
+    height: 50px;
 }
 
 #header {
@@ -50,20 +90,6 @@ body {
     box-shadow: 4px 8px 30px rgb(30, 29, 29);
 }
 
-.welcomePhoto {
-    padding-bottom: 50px;
-}
-
-.mainContent {
-    width: 1400px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    border-radius: 30px;
-    background-color: rgb(22, 22, 19);
-    padding: 20px;
-}
-
 #application {
     margin: auto;
     max-width: 1200px;
@@ -85,33 +111,4 @@ body {
 
 #morerecipeimage{
     max-width: 100%;
-}
-
-form {
-    width: 75%;
-}
-
-.resultDisplay {
-    margin: 12px;
-    border-radius: 20px;
-}
-.card-content {
-    margin-bottom: 30px;
-}
-li {
-    color: rgb(80, 71, 71);
-    list-style: none;
-}
-
-
-/* .card {
-    border-radius: 30px;
-} */
-
-.card:hover {
-    box-shadow: 4px 8px 30px rgb(30, 29, 29);
-}
-
-a:hover {
-    color: rgb(139, 194, 228);
 }

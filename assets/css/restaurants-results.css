@@ -2,17 +2,6 @@ body {
     height: 100%;
 }
 
-#container-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-
-#container-cards .columns {
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .more-icon {
     font-size: 24px;
     margin: 4% 4% 0px 0px;
@@ -43,4 +32,15 @@ body {
 .message-header{
     position: relative;
     padding-top: 3%;
+}
+
+#container-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+#container-cards .columns {
+    flex-wrap: wrap;
+    justify-content: center;
 }
