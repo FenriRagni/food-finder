@@ -56,7 +56,7 @@ function fetchGooglePlaces(keyword) {
         type: ['food'],
     };
 
-    // console.log("request:", request)
+    console.log("request:", request)
     
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
@@ -70,7 +70,7 @@ function fetchGooglePlaces(keyword) {
             city: queryLocation.val(),
             radius: searchRadius,
         }
-
+        console.log("Results: ", results);
         let updatedResults = updateResults(results);
         displayResults(updatedResults, searchOptions);
         
@@ -159,7 +159,6 @@ function displayResults(results, searchOptions) {
         cardTitle.addClass("title is-4");
         cardTitle.text(name);
         var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
-        console.log("bookIcon: ", bookIcon);
         if(filterBookmarks(results[i].place_id) >= 0){
             bookIcon.data("favorite", true);
             bookIcon.addClass("fa-bookmark")
@@ -171,17 +170,13 @@ function displayResults(results, searchOptions) {
         cardTitle.append(bookIcon);
         bookIcon.on("click", function(){
             var item = $(this);
-            console.log("icon: ", item);
             if(item.data("favorite")===false) {
                 item.data("favorite", true);
-                console.log("favorite: ", item.data("favorite"));
                 var obj = {};
                 obj["name"] = item.data("name");
                 obj["id"] = item.data("id");
                 obj["type"] = item.data("type");
-                console.log("object: ", obj);
                 bookmarks.push(obj);
-                console.log("bookmark array: ", bookmarks);
                 localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
                 item.removeClass("fa-bookmark-o");
                 item.addClass("fa-bookmark");
@@ -198,18 +193,20 @@ function displayResults(results, searchOptions) {
             }
         })
         let isOpenEl = $("<p>");
-        isOpenEl.addClass("content");
+        // isOpenEl.addClass("content");
         isOpenEl.html(isOpen);
 
         let ratingEl = $("<p>");
-        ratingEl.addClass("content");
+        // ratingEl.addClass("content");
         ratingEl.html(`<strong>${rating}</strong> /5 (${ratingsCount} total reviews)`)
 
         let priceLevelEl = $("<p>");
-        priceLevelEl.addClass("content");
+        // priceLevelEl.addClass("content");
         priceLevelEl.html(priceLevel);
+        
+        let details = $('<p><a href=./restaurant-details.html?="' + results[i].place_id +'">Details</a><p>');
 
-        mediaContent.append(cardTitle, isOpenEl, priceLevelEl, ratingEl);
+        mediaContent.append(cardTitle, isOpenEl, priceLevelEl, ratingEl, details);
         
         cardContent.append(mediaContent);
         resultCard.append(cardImage, cardContent);
