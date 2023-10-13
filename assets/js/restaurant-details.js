@@ -1,5 +1,7 @@
+var queryResult;
+
 $(document).ready(function() {
-    var queryResult = document.location.search.split("=")[1];
+    queryResult= document.location.search.split("=")[1];
     if (queryResult) {
         initPlaces();
         getPlaceDetails(queryResult);
@@ -28,6 +30,44 @@ var request = {
         image.attr("src",place.photos[0].getUrl({maxWidth: 500, maxHeight: 500}));
         let name = $("#title");
         name.children().text(place.name);
+        let icon = $('<i class="fa is-pulled-right details-icon" data-id="'+ queryResult + '" data-type="recipe" data-name="' + place.name +'"/>')
+        console.log(place.place_id);
+        if(filterBookmarks(queryResult) >= 0) {
+            icon.data("favorite", true);
+            icon.addClass("fa-bookmark")
+        }
+        else {
+            icon.data("favorite", false);
+            icon.addClass("fa-bookmark-o")
+        }
+        icon.on("click", function(){
+            var item = $(this);
+            console.log("icon: ", item);
+            if(item.data("favorite")===false) {
+                item.data("favorite", true);
+                console.log("favorite: ", item.data("favorite"));
+                var obj = {};
+                obj["name"] = item.data("name");
+                obj["id"] = item.data("id");
+                obj["type"] = item.data("type");
+                console.log("object: ", obj);
+                bookmarks.push(obj);
+                console.log("bookmark array: ", bookmarks);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                item.removeClass("fa-bookmark-o");
+                item.addClass("fa-bookmark");
+                loadBookmarks();
+            }
+            else{
+                item.data("favorite", false);
+                item.removeClass("fa-bookmark");
+                item.addClass("fa-bookmark-o");
+                bookmarks.splice(filterBookmarks(item.data("id")),1);
+                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                loadBookmarks();
+            }
+        })
+        name.append(icon);
         let info = $("#info");
         let formatted_address = place.formatted_address.split(" ");
         formatted_address[5] = formatted_address[5].split(",")[0];

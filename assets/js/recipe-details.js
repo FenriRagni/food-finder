@@ -33,7 +33,7 @@ function getSearchResults(recipeId){
 };
 
 function data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink){
-    var title = $('#titile');
+    var title = $('#title');
     var image = $('#image');
     var name = $('#name');
     var shortDescription = $('#shortDescription');
