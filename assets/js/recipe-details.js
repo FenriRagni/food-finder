@@ -23,8 +23,8 @@ function getSearchResults(recipeId){
             var cuisine = temptData.hits[0].recipe.cuisineType;
             var health = temptData.hits[0].recipe.healthLabels;
             var ingredient = temptData.hits[0].recipe.ingredientLines;
-            console.log(ingredient);
-            data4Recipe(label, imageUrl, cuisine, health, calories);
+            var recipeLIink = temptData.hits[0].recipe.url;
+            data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink);
             for( i=0; i<ingredient.length;i++){
                 $('#shortDescription').append('<p>' + ingredient[i] + '</p>');
             }
@@ -32,18 +32,19 @@ function getSearchResults(recipeId){
         );
 };
 
-function data4Recipe(label, imageUrl, cuisine, health, calories){
+function data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink){
     var title = $('#titile');
     var image = $('#image');
     var name = $('#name');
     var shortDescription = $('#shortDescription');
     var longDescription=$('#longDescription');
+    var link = $("#link");
     name.text(label);
     image.attr('src',imageUrl);
     shortDescription.append("<p>" + cuisine +"</p>");
     longDescription.append("<p>" + health +"</p>");
     shortDescription.append("<p>"+ " Total "+ calories + " Calories."+"</p>");
-
+    link.html('<a href ="' + recipeLIink + '">See more details about this recipe</a>')
 };
 
 getSearchQuery();
