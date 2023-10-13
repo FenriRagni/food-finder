@@ -13,14 +13,12 @@ $(function () {
 function searchClick(event) {
     event.stopPropagation();
     event.preventDefault();
-    if (!(queryItem.val().length > 0) || !(queryLocation.val().lentgh > 0)){
-        console.log(queryItem.val().length);
-        console.log(queryLocation.val().lentgh);
+    if ((queryItem.val().length === 0) || (queryLocation.val().length === 0)){
         openModal();
     } else {
-    $(".recipeDisplay").children().remove();
-    $(".restaurantDisplay").children().remove();
-    showRecipeResults(queryItem.val());
+        $(".recipeDisplay").children().remove();
+        $(".restaurantDisplay").children().remove();
+        showRecipeResults(queryItem.val());
     }
 }
 
@@ -43,23 +41,17 @@ function showRecipeResults(searchQuery) {
             return response.json();
         })
         .then(function (data) {
-            if (data.hits.length === 0) {
-                alert(
-                    "There is no recipe matching your query. Search another menu."
-                );
-            } else {
-                for (i = 0; i < 4; i++) {
-                    var recipeId = data.hits[i].recipe.uri.split("_")[1];
-                    var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE NAME SOURCE
-                    var extractCuiseType = data.hits[i].recipe.cuisineType;
-                    crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
-                    var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
-                    var mealTypeData = data.hits[i].recipe.mealType;
-                    var calorieData = Math.round(data.hits[i].recipe.calories);
-                    // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
-                    RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
-                }
-            };
+            for (i = 0; i < 4; i++) {
+                var recipeId = data.hits[i].recipe.uri.split("_")[1];
+                var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE NAME SOURCE
+                var extractCuiseType = data.hits[i].recipe.cuisineType;
+                crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
+                var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
+                var mealTypeData = data.hits[i].recipe.mealType;
+                var calorieData = Math.round(data.hits[i].recipe.calories);
+                // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
+                RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
+            }
             if (data.hits.length > 0) {
                 $(".recipeDisplay").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
             }
