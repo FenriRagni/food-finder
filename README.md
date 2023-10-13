@@ -18,7 +18,7 @@ or they can make their favorite dish at home.
 ## CREDIT
 We want to credit to freepik for providing us with this awesome background image !!
 ![Fresh food image](https://img.freepik.com/free-vector/restaurant-mural-wallpaper_52683-48028.jpg?w=900&t=st=1697220890~exp=1697221490~hmac=56f2be0348c88491858d15463dd1f1c75a549d4e02a53116fe016a7fe1df67f2)
-
+(https://www.freepik.com/free-vector/restaurant-mural-wallpaper_10373272.htm#query=food%20graphic&position=4&from_view=keyword&track=ais)
 
 
 
