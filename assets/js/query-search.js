@@ -204,7 +204,7 @@ function displayResults(results, searchOptions) {
         // priceLevelEl.addClass("content");
         priceLevelEl.html(priceLevel);
         
-        let details = $('<p><a href=./restaurant-details.html?="' + results[i].place_id +'">Details</a><p>');
+        let details = $('<p><a href=./restaurant-details.html?q=' + results[i].place_id +'>Details</a><p>');
 
         mediaContent.append(cardTitle, isOpenEl, priceLevelEl, ratingEl, details);
         

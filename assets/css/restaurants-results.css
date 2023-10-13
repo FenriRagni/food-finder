@@ -17,3 +17,17 @@ body {
     font-size: 24px;
     margin: 4% 4% 0px 0px;
 }
+
+.review-author {
+    background-color: rgba(31, 22, 22, 0.906);
+    color:aqua;
+    border-radius: 20px 0px 0px 20px;
+    text-align: center;
+
+}
+
+.review-text {
+    background-color: aqua;
+    color: rgba(31, 22, 22, 0.906);;
+    border-radius: 0px 20px 20px 0px;
+}
