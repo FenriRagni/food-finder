@@ -107,24 +107,24 @@ function displayResults(results) {
         figure.append(image);
         cardImage.append(figure);
         let cardContent = $("<div>");
-        cardContent.addClass("card-content is-size-4");
+        cardContent.addClass("is-size-4");
 
         let isOpenEl = $("<p>");
-        isOpenEl.addClass("content");
+        // isOpenEl.addClass("content");
         isOpenEl.html(isOpen)
 
         let ratingEl = $("<p>");
-        ratingEl.addClass("content");
-        ratingEl.html(`<strong>${rating}</strong> /5 (${ratingsCount} total reviews)`)
+        // ratingEl.addClass("content");
+        ratingEl.html(`<strong>${rating}</strong> /5 (${ratingsCount} reviews)`)
 
         let priceLevelEl = $("<p>");
-        priceLevelEl.addClass("content");
+        // priceLevelEl.addClass("content");
         priceLevelEl.html(priceLevel);
 
-        // let descriptionEl = $("<p>");
+        let detailsLink = $("<p>");
+        detailsLink.html('<a href = "./restaurant-details.html?=' + results[i].place_id + '">Details</a>');
 
-
-        cardContent.append(isOpenEl, priceLevelEl, ratingEl);
+        cardContent.append(isOpenEl, priceLevelEl, ratingEl, detailsLink);
         card.append(cardImage, cardHeader, cardContent);
         cardDiv.append(card);
     }

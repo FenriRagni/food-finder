@@ -87,6 +87,3 @@ function data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink){
 };
 
 getSearchQuery();
-
-            
-
