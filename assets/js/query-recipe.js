@@ -25,6 +25,7 @@ function showRecipeResults(searchQuery) {
         "&app_id=f77c7e0e&app_key=43e8d41a5b2ed56c8d6d782c1d900e3e";
     fetch(requestURL)
         .then(function (response) {
+            console.log(response);
             return response.json();
         })
         .then(function (data) {
