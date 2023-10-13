@@ -26,8 +26,9 @@ $(function() {
 function handleSearch(event) {
     event.stopPropagation();
     event.preventDefault();
-    
-    fetchGooglePlaces(queryItem.val())
+    if (queryItem.val().length > 0 && queryLocation.val().length > 0){
+        fetchGooglePlaces(queryItem.val())
+    }
 }
 
 async function handleUpdateAutocomplete() {
