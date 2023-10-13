@@ -1,5 +1,7 @@
 var queryItem = $("#query-item");
+var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
+var modalCloseButton = $("#modal-close");
 var bookmarks = [];
 var bkList = $("#bookmark");
 
@@ -11,10 +13,20 @@ $(function () {
 function searchClick(event) {
     event.stopPropagation();
     event.preventDefault();
-    $(".recipeDisplay").children().remove();
-    $(".restaurantDisplay").children().remove();
-    showRecipeResults(queryItem.val());
+    if ((queryItem.val().length === 0) || (queryLocation.val().length === 0)){
+        openModal();
+    } else {
+        $(".recipeDisplay").children().remove();
+        $(".restaurantDisplay").children().remove();
+        showRecipeResults(queryItem.val());
+    }
 }
+
+// Close the modal when user clicks close
+modalCloseButton.on("click", function() {
+    $("#emptyinput").removeAttr("class");
+    $("#emptyinput").attr("class","modal");
+});
 
 /// Base API request to get recipe data
 
@@ -25,26 +37,21 @@ function showRecipeResults(searchQuery) {
         "&app_id=f77c7e0e&app_key=43e8d41a5b2ed56c8d6d782c1d900e3e";
     fetch(requestURL)
         .then(function (response) {
+            console.log(response);
             return response.json();
         })
         .then(function (data) {
-            if (data.hits.length === 0) {
-                alert(
-                    "There is no recipe matching your query. Search another menu."
-                );
-            } else {
-                for (i = 0; i < 4; i++) {
-                    var recipeId = data.hits[i].recipe.uri.split("_")[1];
-                    var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE NAME SOURCE
-                    var extractCuiseType = data.hits[i].recipe.cuisineType;
-                    crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
-                    var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
-                    var mealTypeData = data.hits[i].recipe.mealType;
-                    var calorieData = Math.round(data.hits[i].recipe.calories);
-                    // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
-                    RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
-                }
-            };
+            for (i = 0; i < 4; i++) {
+                var recipeId = data.hits[i].recipe.uri.split("_")[1];
+                var recipeTitle = data.hits[i].recipe.label;         //<---- RECIPE NAME SOURCE
+                var extractCuiseType = data.hits[i].recipe.cuisineType;
+                crusinetype = extractCuiseType[0];      //<----------------RECIPE CUISINE TYPE SOURCE
+                var imageSouce = data.hits[i].recipe.images.SMALL.url;   //<-------- RECIPE IMAGE SOURCE
+                var mealTypeData = data.hits[i].recipe.mealType;
+                var calorieData = Math.round(data.hits[i].recipe.calories);
+                // ALL WE HAVE TO DO IS INSERT INTO THE CARD GENERATOR FUNCTION VALUES RETURNED FROM API
+                RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
+            }
             if (data.hits.length > 0) {
                 $(".recipeDisplay").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
             }
@@ -116,8 +123,6 @@ function showRecipeResults(searchQuery) {
         cardSub.html("<b>Cuisine type: </b>" + subtitle);
     }
 
-}
-
 function filterBookmarks(itemId){
     for(var x = 0; x < bookmarks.length; x++) {
         if(bookmarks[x].id === itemId){
@@ -149,4 +154,9 @@ function loadBookmarks(){
         }
         
     }
+
 }
+
+function openModal(){
+    document.getElementById("emptyinput").setAttribute("class", "modal is-active");
+};
