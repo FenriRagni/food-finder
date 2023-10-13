@@ -122,7 +122,6 @@ function showRecipeResults(searchQuery) {
         })
         cardSub.html("<b>Cuisine type: </b>" + subtitle);
     }
-
 }
 
 function filterBookmarks(itemId){
@@ -156,8 +155,9 @@ function loadBookmarks(){
         }
         
     }
+
 }
 
 function openModal(){
     document.getElementById("emptyinput").setAttribute("class", "modal is-active");
-};
+}
