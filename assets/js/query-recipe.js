@@ -13,8 +13,6 @@ $(function () {
 function searchClick(event) {
     event.stopPropagation();
     event.preventDefault();
-    console.log(queryItem.val().length);
-    console.log(queryLocation.val().length);
     if ((queryItem.val().length === 0) || (queryLocation.val().length === 0)){
         openModal();
     } else {
