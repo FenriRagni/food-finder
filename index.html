@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Finder</title>
+
+    <script src="https://kit.fontawesome.com/f96f0b7823.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic"
-        rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/f96f0b7823.js" crossorigin="anonymous"></script>
+
+    <title>Food Finder</title>
 </head>
 
 <body>
-    <section class="hero">
+    <header class="hero">
         <div class="hero-body" id="header">
             <div class="container">
                 <article class="media">
@@ -23,71 +24,77 @@
                         </p>
                     </figure>
                     <h1 class="title"> FOOD FINDER </h1>
-
+                </article>
             </div>
-    </section>
-    <section class="welcomePhoto section">
-        <figure class="media">
-            <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
-        </figure>
-    </section>
-    <section class="section">
-        <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
+        </div>
+    </header>
 
+    <main>
+        <section class="welcomePhoto section">
+            <figure class="media">
+                <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
+            </figure>
+        </section>
 
-            <div class="dropdown is-hoverable m-0">
-                <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
-                        <span class="icon is-small">
-                            <i class="fas fa-book" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu1" role="menu">
-                    <div id="bookmark"class="dropdown-content">
+        <section class="section">
+            <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
+                <div class="dropdown is-hoverable m-0">
+                    <div class="dropdown-trigger">
+                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+                            <span class="icon is-small">
+                                <i class="fas fa-book" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+                        <div id="bookmark"class="dropdown-content">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <form class="is-flex is-flex-direction-row " >
+                <form class="is-flex is-flex-direction-row " >
 
-                <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
-                <input type="text" id="query-location" class="input mx-3" placeholder="Location">
-                <p id="debug-text"></p>
-                <button type="button" id="button-search" class="button is-primary">Search</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="">
-        <div class="container">
-            <div class="columns">            
-                <div class="column is-6 is-desktop recipeDisplay"></div>
-                <div class="column is-6 is-desktop restaurantDisplay"></div>
+                    <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
+                    <input type="text" id="query-location" class="input mx-3" placeholder="Location">
+                    <p id="debug-text"></p>
+                    <button type="button" id="button-search" class="button is-primary">Search</button>
+                </form>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section class="">
+            <div class="container">
+                <div class="columns">            
+                    <div class="column is-6 is-desktop recipeDisplay"></div>
+                    <div class="column is-6 is-desktop restaurantDisplay"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
     <div id="map"></div>
 
     <div class="modal" id="emptyinput">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Your input is empty</p>
-          </header>
-          <section class="modal-card-body">
-            Please fill out both food and location to search
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button" id="modal-close">Close</button>
-          </footer>
+            <header class="modal-card-head">
+                <p class="modal-card-title">Your input is empty</p>
+            </header>
+            <section class="modal-card-body">
+                Please fill out both food and location to search
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" id="modal-close">Close</button>
+            </footer>
         </div>
-      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+    </script>
 
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initGoogle">
-        </script>
+    </script>
 
     <script src="./assets/js/query-recipe.js"></script>
     <script src="./assets/js/query-search.js"></script>
