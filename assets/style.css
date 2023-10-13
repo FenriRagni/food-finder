@@ -12,6 +12,7 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
+    min-height: 1500px;
 }
 
 #logo {
@@ -103,9 +104,9 @@ li {
 }
 
 
-.card {
+/* .card {
     border-radius: 30px;
-}
+} */
 
 .card:hover {
     box-shadow: 4px 8px 30px rgb(30, 29, 29);
