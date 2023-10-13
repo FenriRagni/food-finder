@@ -142,7 +142,9 @@ function loadBookmarks(){
                 if(bookmarks[x].type === "recipe"){
                     bkList.append($('<div class="dropdown-item"><a href= "recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
                 }
-                
+                else{
+                    bkList.append($('<div class="dropdown-item"><a href= "restaurant-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'))
+                }
             }
         }
         
