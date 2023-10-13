@@ -49,7 +49,7 @@ var request = {
             let reviewBox = $("<div>");
             reviewBox.addClass("columns reviews is-medium is-justify-content-center");
             let authorBox = $("<div>");
-            authorBox.addClass("column review-author is-2 my-2 p-2");
+            authorBox.addClass("card review-author is-2 my-2 p-2");
             authorBox.text(place.reviews[x].author_name);
             let authorImg = $("<img>");
             authorImg.attr("src", place.reviews[x].profile_photo_url);
