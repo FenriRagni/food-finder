@@ -13,7 +13,7 @@ if (queryResult) {
 function getPlaceDetails(restId) {
 var request = {
     placeId: restId,
-    fields: ['name', 'rating', 'formatted_phone_number', 'geometry', "formatted_address", "photos", "url"]
+    fields: ['name', 'rating', 'formatted_phone_number', 'geometry', "formatted_address", "photos", "url", "opening_hours", "review"]
   };
   
   console.log("gPlaces", gPlaces);
@@ -22,8 +22,25 @@ var request = {
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log("place: ", place);
-        var image = $("#image");
+        let image = $("#image");
         image.attr("src",place.photos[0].getUrl({maxWidth: 500, maxHeight: 500}));
+        let name = $("#title");
+        name.children().text(place.name);
+        let info = $("#info");
+        let formatted_address = place.formatted_address.split(" ");
+        formatted_address[5] = formatted_address[5].split(",")[0];
+        console.log("Address: ", formatted_address);
+        information = "Address: <br>"+ formatted_address[0] + " " + formatted_address[1] + " " + formatted_address[2] + "<br>     " + formatted_address[3] + " " + formatted_address[4] + " " + formatted_address[5]
+        + "<br><br>Phone: <br>" + place.formatted_phone_number
+        + "<br><br>Hours: <br>";
+        let weekdays = place.opening_hours.weekday_text
+
+        for(let x = 0; x < weekdays.length; x++){
+            information += weekdays[x] + "<br>";
+        }
+        info.html(information);
+        $("website").text("Website: " + place.url);
+
     }
   }
 }
