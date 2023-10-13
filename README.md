@@ -13,8 +13,10 @@ or they can make their favorite dish at home.
 
 ## USER INTERFACE
 ![website looks](./assets/images/Screenshot%202023-10-13%20at%2011.05.34%20AM.png)
-## CREDIT
 
+
+## CREDIT
+We want to credit to freepik for providing us with this awesome background image !!
 ![Fresh food image](https://img.freepik.com/free-vector/restaurant-mural-wallpaper_52683-48028.jpg?w=900&t=st=1697220890~exp=1697221490~hmac=56f2be0348c88491858d15463dd1f1c75a549d4e02a53116fe016a7fe1df67f2)
 
 
@@ -30,8 +32,9 @@ or they can make their favorite dish at home.
 
 ## TEST
 * Conducted test on search function for many different location. 
-* Conducted test on search function for many different food.
+* Conducted test on search function for many different food recipe.
 * Conducted test on website opening on loading/closing window.
+* Conducted test on location storage for bookmark items.
 
 
 ### GOOGLE PLACES
