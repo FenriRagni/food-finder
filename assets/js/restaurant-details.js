@@ -39,8 +39,9 @@ var request = {
             information += weekdays[x] + "<br>";
         }
         info.html(information);
-        $("website").text("Website: " + place.url);
-
+        let website = $("website");
+        console.log(place.url);
+        website.html('<a href="'+ place.url +'"> Website </a>')
     }
   }
 }
