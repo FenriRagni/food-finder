@@ -1,5 +1,7 @@
 var queryItem = $("#query-item");
+var queryLocation = $("#query-location");
 var buttonSearch = $("#button-search");
+var modalCloseButton = $("#modal-close");
 var bookmarks = [];
 var bkList = $("#bookmark");
 
@@ -11,10 +13,22 @@ $(function () {
 function searchClick(event) {
     event.stopPropagation();
     event.preventDefault();
+    if (!(queryItem.val().length > 0) || !(queryLocation.val().lentgh > 0)){
+        console.log(queryItem.val().length);
+        console.log(queryLocation.val().lentgh);
+        openModal();
+    } else {
     $(".recipeDisplay").children().remove();
     $(".restaurantDisplay").children().remove();
     showRecipeResults(queryItem.val());
+    }
 }
+
+// Close the modal when user clicks close
+modalCloseButton.on("click", function() {
+    $("#emptyinput").removeAttr("class");
+    $("#emptyinput").attr("class","modal");
+});
 
 /// Base API request to get recipe data
 
@@ -151,3 +165,7 @@ function loadBookmarks(){
         
     }
 }
+
+function openModal(){
+    document.getElementById("emptyinput").setAttribute("class", "modal is-active");
+};
