@@ -1,11 +1,13 @@
-var queryResult = document.location.search.split("=")[1];
-if (queryResult) {
-    initPlaces();
-    getPlaceDetails(queryResult);
-} else {
-// If no result, go back to main page
-    document.location.replace("./index.html");
-}
+$(document).ready(function() {
+    var queryResult = document.location.search.split("=")[1];
+    if (queryResult) {
+        initPlaces();
+        getPlaceDetails(queryResult);
+    } else {
+    // If no result, go back to main page
+        document.location.replace("./index.html");
+    }
+});
 
 
 
@@ -39,12 +41,33 @@ var request = {
             information += weekdays[x] + "<br>";
         }
         info.html(information);
-        let website = $("website");
+        let website = $("#website");
         console.log(place.url);
-        website.html('<a href="'+ place.url +'"> Website </a>')
+        website.html('<a href="'+ place.url +'"> Find it on Google Maps </a>');
+        var reviews = $("#reviews");
+        for(let x = 0; x < place.reviews.length; x++){
+            let reviewBox = $("<div>");
+            reviewBox.addClass("columns reviews is-medium is-justify-content-center");
+            let authorBox = $("<div>");
+            authorBox.addClass("card review-author is-2 my-2 p-2");
+            authorBox.text(place.reviews[x].author_name);
+            let authorImg = $("<img>");
+            authorImg.attr("src", place.reviews[x].profile_photo_url);
+            authorBox.append(authorImg);
+            let authorRating = $('<p>');
+            authorRating.text(place.reviews[x].rating + "/5");
+            authorBox.append(authorRating);
+            let authorText = $('<div>');
+            authorText.addClass("p-2 my-2 review-text")
+            authorText.html("<p>" + place.reviews[x].text + "</p>");
+            reviewBox.append(authorBox, authorText);
+            reviewBox.addClass("my-2");
+            reviews.append(reviewBox);
+        }
     }
   }
 }
+
 function findRestaurant(restId) {
     var restaurants = JSON.parse(localStorage.getItem("restaurantResults"));
     for( var x = 0; x < restaurants.length; x++){

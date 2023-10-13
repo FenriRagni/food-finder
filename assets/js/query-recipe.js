@@ -123,8 +123,6 @@ function showRecipeResults(searchQuery) {
         cardSub.html("<b>Cuisine type: </b>" + subtitle);
     }
 
-}
-
 function filterBookmarks(itemId){
     for(var x = 0; x < bookmarks.length; x++) {
         if(bookmarks[x].id === itemId){
@@ -156,6 +154,7 @@ function loadBookmarks(){
         }
         
     }
+
 }
 
 function openModal(){
