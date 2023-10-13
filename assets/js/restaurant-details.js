@@ -8,6 +8,8 @@ if (queryResult) {
 }
 
 
+
+
 function getPlaceDetails(restId) {
 var request = {
     placeId: restId,
@@ -20,6 +22,8 @@ var request = {
   function callback(place, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         console.log("place: ", place);
+        var image = $("#image");
+        image.attr("src",place.photos[0].getUrl({maxWidth: 500, maxHeight: 500}));
     }
   }
 }
