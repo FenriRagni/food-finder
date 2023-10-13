@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/f96f0b7823.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/style.css">
 
     <link rel="stylesheet" href="./assets/css/restaurants-results.css">
@@ -15,7 +16,19 @@
 </head>
 
 <body>
-
+    <div class="dropdown is-hoverable my-0">
+        <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
+                <span class="icon is-small">
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+            <div id="bookmark"class="dropdown-content">
+            </div>
+        </div>
+    </div>
     <section class="hero">
         <div class="hero-body" id="header">
             <div class="container">
