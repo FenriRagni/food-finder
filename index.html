@@ -29,12 +29,12 @@
     </header>
 
     <main>
-        
         <section class="welcomePhoto section">
             <figure class="media">
                 <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
             </figure>
         </section>
+
         <section class="section">
             <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
                 <div class="dropdown is-hoverable m-0">
@@ -68,29 +68,32 @@
                 </div>
             </div>
         </section>
-        <div id="map"></div>
     </main>
+    
+    <div id="map"></div>
 
     <div class="modal" id="emptyinput">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Your input is empty</p>
-          </header>
-          <section class="modal-card-body">
-            Please fill out both food and location to search
-          </section>
-          <footer class="modal-card-foot">
-            <button class="button" id="modal-close">Close</button>
-          </footer>
+            <header class="modal-card-head">
+                <p class="modal-card-title">Your input is empty</p>
+            </header>
+            <section class="modal-card-body">
+                Please fill out both food and location to search
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button" id="modal-close">Close</button>
+            </footer>
         </div>
-      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+    </script>
 
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q&libraries=places&callback=initGoogle">
-        </script>
+    </script>
 
     <script src="./assets/js/query-recipe.js"></script>
     <script src="./assets/js/query-search.js"></script>
