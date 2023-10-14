@@ -55,10 +55,10 @@ function loadBookmarks(){
             bkList.text("");
             for(let x = 0; x < bookmarks.length; x++){
                 if(bookmarks[x].type === "recipe"){
-                    bkList.append($('<div class="dropdown-item"><a href= "recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
+                    bkList.append($('<div class="dropdown-item"><a href= "./recipe-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'));
                 }
                 else{
-                    bkList.append($('<div class="dropdown-item"><a href= "restaurant-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'))
+                    bkList.append($('<div class="dropdown-item"><a href= "./restaurant-details.html?q=' + bookmarks[x].id + '">'+ bookmarks[x].name + '</div>'))
                 }
             }
         }

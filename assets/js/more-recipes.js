@@ -46,7 +46,7 @@ function getSearchResults(searchQuery) {
                 cardHeader.append(cardTitle);
                 cardHeader.append(icon);
                 let cardContent = $("<div>");
-                cardContent.addClass("card-content is-size-4");
+                cardContent.addClass("card-content is-size-4 mb-0");
 
                 let cardImage = $("<div>");
                 cardImage.addClass("card-image");
