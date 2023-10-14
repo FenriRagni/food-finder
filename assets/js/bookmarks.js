@@ -12,7 +12,7 @@ function createBookmark(name, id, type) {
         icon.addClass("fa-bookmark-o")
     }
     icon.on("click", function(){
-        var item = $(this);
+        let item = $(this);
         console.log("icon: ", item);
         if(item.data("favorite")===false) {
             item.data("favorite", true);

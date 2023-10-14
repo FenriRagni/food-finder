@@ -76,7 +76,7 @@ function showRecipeResults(searchQuery) {
         mediaContent.append(cardTitle, cardSub, recipeBox);
         recipeBox.append("<li><b>Good for</b>:" + mealTypeData + "</li>");
         recipeBox.append("<li>" + calorieData + " calories</li>");
-        recipeBox.append('<li><a href = "https://fenriragni.github.io/food-finder/recipe-details.html?=' + recipeId + '"> Details</a></li>');
+        recipeBox.append('<li><a href="./recipe-details.html?=' + recipeId + '"> Details</a></li>');
         recipeBox.attr("class","ingredient")
         figure.append($("<img>").attr("src", imagehtml));
         cardTitle.text(title);

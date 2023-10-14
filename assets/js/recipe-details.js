@@ -47,43 +47,9 @@ function data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink){
     longDescription.append("<p>" + health +"</p>");
     shortDescription.append("<p>"+ " Total "+ calories + " Calories."+"</p>");
     link.html('<a href ="' + recipeLIink + '">See more details about this recipe</a>')
-    let icon = $('<i class="fa is-pulled-right details-icon" data-id="'+ queryResult + '" data-type="recipe" data-name="' + label +'"/>')
-    if(filterBookmarks(queryResult) >= 0) {
-        icon.data("favorite", true);
-        icon.addClass("fa-bookmark")
-    }
-    else {
-        icon.data("favorite", false);
-        icon.addClass("fa-bookmark-o")
-    }
-    icon.on("click", function(){
-        var item = $(this);
-        console.log("icon: ", item);
-        if(item.data("favorite")===false) {
-            item.data("favorite", true);
-            console.log("favorite: ", item.data("favorite"));
-            var obj = {};
-            obj["name"] = item.data("name");
-            obj["id"] = item.data("id");
-            obj["type"] = item.data("type");
-            console.log("object: ", obj);
-            bookmarks.push(obj);
-            console.log("bookmark array: ", bookmarks);
-            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-            item.removeClass("fa-bookmark-o");
-            item.addClass("fa-bookmark");
-            loadBookmarks();
-        }
-        else{
-            item.data("favorite", false);
-            item.removeClass("fa-bookmark");
-            item.addClass("fa-bookmark-o");
-            bookmarks.splice(filterBookmarks(item.data("id")),1);
-            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-            loadBookmarks();
-        }
-    })
+    let icon = createBookmark(label, queryResult, "recipe");
+    icon.addClass("details-icon");
     title.append(icon);
 };
-
+loadBookmarks();
 getSearchQuery();
