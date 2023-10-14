@@ -58,44 +58,8 @@ function displayResults(results) {
         cardTitle.text(name)
         cardHeader.append(cardTitle);
       
-        var icon = $('<i class="fa is-pulled-right more-icon" data-id="'+ results[i].place_id + '" data-type="recipe" data-name="' + name +'"/>')
-        if(filterBookmarks(results[i].place_id) >= 0){
-            icon.data("favorite", true);
-            icon.addClass("fa-bookmark")
-        }
-        else{
-            icon.data("favorite", false);
-            icon.addClass("fa-bookmark-o")
-        }
-        
-        icon.on("click", function(){
-            var item = $(this);
-            console.log("icon: ", item);
-            if(item.data("favorite")===false) {
-                item.data("favorite", true);
-                console.log("favorite: ", item.data("favorite"));
-                var obj = {};
-                obj["name"] = item.data("name");
-                obj["id"] = item.data("id");
-                obj["type"] = item.data("type");
-                console.log("object: ", obj);
-                bookmarks.push(obj);
-                console.log("bookmark array: ", bookmarks);
-                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-                item.removeClass("fa-bookmark-o");
-                item.addClass("fa-bookmark");
-                loadBookmarks();
-            }
-            else{
-                item.data("favorite", false);
-                item.removeClass("fa-bookmark");
-                item.addClass("fa-bookmark-o");
-                bookmarks.splice(filterBookmarks(item.data("id")),1);
-                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-                loadBookmarks();
-                
-            }
-        })
+        let icon = createBookmark(name, results[i].place_id, "restaurant");
+        icon.addClass("more-icon");
         cardHeader.append(icon);
             
 
@@ -110,15 +74,12 @@ function displayResults(results) {
         cardContent.addClass("is-size-4");
 
         let isOpenEl = $("<p>");
-        // isOpenEl.addClass("content");
         isOpenEl.html(isOpen)
 
         let ratingEl = $("<p>");
-        // ratingEl.addClass("content");
         ratingEl.html(`<strong>${rating}</strong> /5 (${ratingsCount} reviews)`)
 
         let priceLevelEl = $("<p>");
-        // priceLevelEl.addClass("content");
         priceLevelEl.html(priceLevel);
 
         let detailsLink = $("<p>");
