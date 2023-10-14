@@ -159,6 +159,8 @@ function displayResults(results, searchOptions) {
         var cardTitle = $("<h2>");
         cardTitle.addClass("title is-4");
         cardTitle.text(name);
+        let bookIcon = createBookmark(name, results[i].place_id, "restaurant");
+        cardTitle.append(bookIcon);
         // var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
         // if(filterBookmarks(results[i].place_id) >= 0){
         //     bookIcon.data("favorite", true);
