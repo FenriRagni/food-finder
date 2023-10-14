@@ -51,7 +51,7 @@ function showRecipeResults(searchQuery) {
                 RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
             }
             if (data.hits.length > 0) {
-                $(".recipeDisplay").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "https://fenriragni.github.io/food-finder/see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
+                $(".recipeDisplay").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "./see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
             }
         });
     }
