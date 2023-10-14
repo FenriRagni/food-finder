@@ -159,40 +159,40 @@ function displayResults(results, searchOptions) {
         var cardTitle = $("<h2>");
         cardTitle.addClass("title is-4");
         cardTitle.text(name);
-        var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
-        if(filterBookmarks(results[i].place_id) >= 0){
-            bookIcon.data("favorite", true);
-            bookIcon.addClass("fa-bookmark")
-        }
-        else{
-            bookIcon.data("favorite", false);
-            bookIcon.addClass("fa-bookmark-o")
-        }
-        cardTitle.append(bookIcon);
-        bookIcon.on("click", function(){
-            var item = $(this);
-            if(item.data("favorite")===false) {
-                item.data("favorite", true);
-                var obj = {};
-                obj["name"] = item.data("name");
-                obj["id"] = item.data("id");
-                obj["type"] = item.data("type");
-                bookmarks.push(obj);
-                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-                item.removeClass("fa-bookmark-o");
-                item.addClass("fa-bookmark");
-                loadBookmarks();
-            }
-            else{
-                item.data("favorite", false);
-                item.removeClass("fa-bookmark");
-                item.addClass("fa-bookmark-o");
-                bookmarks.splice(filterBookmarks(item.data("id")),1);
-                localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-                loadBookmarks();
+        // var bookIcon = $('<i class="fa is-pulled-right fa-bookmark-o" data-id="'+ results[i].place_id + '" data-type="restaurant" data-name="' + name +'"/>')
+        // if(filterBookmarks(results[i].place_id) >= 0){
+        //     bookIcon.data("favorite", true);
+        //     bookIcon.addClass("fa-bookmark")
+        // }
+        // else{
+        //     bookIcon.data("favorite", false);
+        //     bookIcon.addClass("fa-bookmark-o")
+        // }
+        // cardTitle.append(bookIcon);
+        // bookIcon.on("click", function(){
+        //     var item = $(this);
+        //     if(item.data("favorite")===false) {
+        //         item.data("favorite", true);
+        //         var obj = {};
+        //         obj["name"] = item.data("name");
+        //         obj["id"] = item.data("id");
+        //         obj["type"] = item.data("type");
+        //         bookmarks.push(obj);
+        //         localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        //         item.removeClass("fa-bookmark-o");
+        //         item.addClass("fa-bookmark");
+        //         loadBookmarks();
+        //     }
+        //     else{
+        //         item.data("favorite", false);
+        //         item.removeClass("fa-bookmark");
+        //         item.addClass("fa-bookmark-o");
+        //         bookmarks.splice(filterBookmarks(item.data("id")),1);
+        //         localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        //         loadBookmarks();
                 
-            }
-        })
+        //     }
+        // })
         let isOpenEl = $("<p>");
         // isOpenEl.addClass("content");
         isOpenEl.html(isOpen);
