@@ -49,6 +49,8 @@ Website Banner
 
 [Browser Geolocation](https://www.w3schools.com/html/html5_geolocation.asp)
 
+[Full height background colo](https://stackoverflow.com/a/10115544)
+
 
 ### Google API
 

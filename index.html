@@ -14,30 +14,27 @@
 </head>
 
 <body>
-    <header class="hero">
-        <div class="hero-body" id="header">
-            <div class="container">
-                <article class="media">
-                    <figure class="media-left">
-                        <p class="image">
-                            <img id="logo" src="./assets/images/pixil-frame-0 (2).png">
-                        </p>
-                    </figure>
-                    <h1 class="title"> FOOD FINDER </h1>
-                </article>
-            </div>
+    <header>
+        <div class="container is-flex is-justify-content-center">
+            <figure class="media">
+                <a href = "./index.html">
+                    <p class="image">
+                        <img src="./assets/images/logo_with_sitename.png">
+                    </p>    
+                </a>
+            </figure>
         </div>
     </header>
 
     <main>
-        <section class="welcomePhoto section">
+        <section class="section">
             <figure class="media">
-                <img id="welcomePhoto" src="./assets/images/welcome img.jpg" alt="Welcome images">
+                <img id="welcome-photo" src="./assets/images/welcome img.jpg" alt="Welcome images">
             </figure>
         </section>
 
-        <section class="section">
-            <div class="is-flex is-justify-content-center is-align-items-center searchBox" id="searchSection">
+        <section class="is-flex is-justify-content-center">
+            <div class="is-flex is-justify-content-center p-3 search-section">
                 <div class="dropdown is-hoverable m-0">
                     <div class="dropdown-trigger">
                         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu1">
@@ -51,24 +48,25 @@
                         </div>
                     </div>
                 </div>
-                <form class="is-flex is-flex-direction-row " >
-
-                    <input type="text" id="query-item" class="input mx-3" placeholder="What do you want to eat?">
-                    <input type="text" id="query-location" class="input mx-3" placeholder="Location">
-                    <p id="debug-text"></p>
-                    <button type="button" id="button-search" class="button is-primary">Search</button>
+                
+                <form>
+                    <input type="text" id="query-item" class="input m-3" placeholder="What do you want to eat?">
+                    <input type="text" id="query-location" class="input m-3" placeholder="Location">
+                    <button type="button" id="button-search" class="button is-primary m-3">Search</button>
                 </form>
             </div>
         </section>
 
-        <section class="">
-            <div class="container">
-                <div class="columns">            
-                    <div class="column is-6 is-desktop recipeDisplay"></div>
-                    <div class="column is-6 is-desktop restaurantDisplay"></div>
-                </div>
+        <section class="container">
+            <div id="results-columns" class="columns mx-0">
+                <div class="column recipe-display p-0 m-0"></div>
+
+                <hr>
+
+                <div class="column restaurant-display p-0 m-0"></div>
             </div>
         </section>
+        <br><br>
     </main>
     
     <div id="map"></div>

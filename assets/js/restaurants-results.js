@@ -35,7 +35,7 @@ function displayResults(results) {
 
     let cardContainer = $("#container-cards");
     let cardDiv = $("<div>");
-    cardDiv.addClass("columns p-3 mb-0");
+    cardDiv.addClass("columns p-2 m-0");
 
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
@@ -132,5 +132,5 @@ function buildPriceLevelStr(priceLevel) {
             return "<strong>$ $</strong>"
     }
 }
+
 loadBookmarks();
-// https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJrTLr-GyuEmsRBfy61i59si0&fields=address_components&key=AIzaSyCFTg8yxhfKfqvVhtZpfmTyXco9qlHLm2Q

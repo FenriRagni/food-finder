@@ -57,7 +57,7 @@ function fetchGooglePlaces(keyword) {
         type: ['food'],
     };
 
-    console.log("request:", request)
+    // console.log("request:", request)
     
     // Use nearbySearch to get results from the user's keyword(s)
     gPlaces.nearbySearch(request, function(results, status) {
@@ -71,7 +71,7 @@ function fetchGooglePlaces(keyword) {
             city: queryLocation.val(),
             radius: searchRadius,
         }
-        console.log("Results: ", results);
+        // console.log("Results: ", results);
         let updatedResults = updateResults(results);
         displayResults(updatedResults, searchOptions);
         
@@ -81,11 +81,6 @@ function fetchGooglePlaces(keyword) {
         let stringifyResults = JSON.stringify(updatedResults);
         // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
-
-        // This is only here for testing purposes. This will occur when the "See more restaurants" button is clicked
-        // window.location.href = "./see-more-restaurants.html"
-        // queryItem.val(""); // Clear the input fields after going to the next page
-        // queryLocation.val("");
     });
 }
 
@@ -128,7 +123,7 @@ function updateResults(results) {
  * @param {JSON} results 
  */
 function displayResults(results, searchOptions) {
-    var restaurantContainer = $(".restaurantDisplay");
+    var restaurantContainer = $(".restaurant-display");
     restaurantContainer.html("");
 
     // Only loop through a certain amount of times
@@ -142,7 +137,7 @@ function displayResults(results, searchOptions) {
         let photoUrl = info.photo_url;
 
 
-        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 result-display");
         var resultCard = $("<div>").addClass("card");
         
         var cardImage = $("<div>").addClass("card-image");
@@ -244,13 +239,17 @@ function buildPriceLevelStr(priceLevel) {
 }
 
 
-
+/**
+ * Initializes Google API services. Must match that of in the < script > tag in html files
+ */
 function initGoogle() {
     initAutocomplete()
     initPlaces()
 }
 
-
+/**
+ * Specifically initializes the Google Autocomplete API. Only searches for Cities and only receives the gps coordinates of the city selected.
+ */
 function initAutocomplete() {
     // Create a bounding box with sides ~10km away from the center point
     const defaultBounds = {
@@ -271,7 +270,10 @@ function initAutocomplete() {
     gAutocomplete.addListener('place_changed', handleUpdateAutocomplete);
 }
 
-
+/**
+ * Specifically initializes the Google Places API. It's neccessary to attach this to a div for the Places API to work.
+ * The div doesn't need to show anything, it just needs to exist in the html file.
+ */
 function initPlaces() {
     // Init map for PlacesServices to work
     infowindow = new google.maps.InfoWindow();
@@ -279,14 +281,19 @@ function initPlaces() {
     gPlaces = new google.maps.places.PlacesService(map);
 }
 
-
+/**
+ * Prompts the user to share their location with the website
+ */
 function askForUserLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition)
     }
 }
 
-
+/**
+ * Callback function for askForUserLocation(). Saves the device's location in a local variable
+ * @param {Object} position 
+ */
 function showPosition(position) {
     deviceLocation.lat = position.coords.latitude;
     deviceLocation.lng = position.coords.longitude;

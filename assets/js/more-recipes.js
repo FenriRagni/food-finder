@@ -19,9 +19,11 @@ function getSearchResults(searchQuery) {
             $("#card-header-title").text("There is no recipe matching your query. Search another menu.")
         } else {
             $("h1").text("Showing " + data.hits.length + " recipe results for: " + searchQuery)
+
             let cardContainer = $("#container-cards");
             let cardDiv = $("<div>");
-            cardDiv.addClass("columns p-3 mb-0");
+            cardDiv.addClass("columns p-2 m-0");
+
             for (i = 0; i < 20; i ++) {
                 var name = data.hits[i].recipe.label;
                 var cuisineType = data.hits[i].recipe.cuisineType;
@@ -75,11 +77,11 @@ function getSearchResults(searchQuery) {
                 cardContent.append(descriptions);
                 card.append(cardImage,cardHeader, cardContent);
                 cardDiv.append(card);
-                }    
+            }
             cardContainer.append(cardDiv)
-            };
-        })
-    } 
+        };
+    })
+} 
 
     
 
