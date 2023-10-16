@@ -28,6 +28,10 @@ Website Home Page
 
 <img src="./assets/images/Screenshot%202023-10-13%20at%2011.05.34%20AM.png" style="width: 500px; height: auto" alt="website home page">
 
+<br>Website Demo: ![website-demo](./assets/images/website-demo.gif) <br> <br>
+See more demo: ![see-more-demo](./assets/images/see-more-demo.gif) <br><br>
+Size change demo: <br>![size-change-demo](./assets/images/size-change-mobile.gif)
+
 Website Banner
 
 <img src="https://img.freepik.com/free-vector/restaurant-mural-wallpaper_52683-48028.jpg?w=900&t=st=1697220890~exp=1697221490~hmac=56f2be0348c88491858d15463dd1f1c75a549d4e02a53116fe016a7fe1df67f2" style="width: 500px; height: auto" alt="fresh food banner">
@@ -40,6 +44,59 @@ Website Banner
 * Website opening on loading/closing the site.
 * Location storage to bookmark recipes/restaurants
 
+
+## Code Snippet
+
+A function that returns a negative value if the given item id does not exist in bookmarks. This was crucial in making bookmarks function properly when adding or removing: <br>
+```js
+function filterBookmarks(itemId){
+    for(var x = 0; x < bookmarks.length; x++) {
+        if(bookmarks[x].id === itemId){
+            return x;
+        }
+    }
+    return -1;
+}
+```
+<br><br>Uses the Google API nearbySearch in order to fill in the autocomplete dynamically based on the user's location: <br>
+
+```js
+// Use nearbySearch to get results from the user's keyword(s)
+gPlaces.nearbySearch(request, function(results, status) {
+    if (status !== google.maps.places.PlacesServiceStatus.OK) {
+        console.error("couldn't get locations");
+        return
+    }
+
+    let searchOptions = {
+        keyword: keyword,
+        city: queryLocation.val(),
+        radius: searchRadius,
+    }
+
+    let updatedResults = updateResults(results);
+    displayResults(updatedResults, searchOptions);
+    updatedResults.push(searchOptions); // Add searchInfo to the end to use later
+
+    // Store results in local storage to bring to see-more-restaurants.html
+    let stringifyResults = JSON.stringify(updatedResults);
+    localStorage.setItem(SEARCH_RESULTS, stringifyResults);
+});
+```
+
+<br><br>On each of the seeDetails pages we called a function based on the given URL that contained the unique Id of each recipe/restaurant:
+```js
+var queryResult;
+function getSearchQuery() {
+    queryResult = document.location.search.split("=")[1];
+    if (queryResult) {
+        getSearchResults(queryResult);
+    } else {
+        // If no result, go back to main page
+        document.location.replace("./index.html");
+    }
+};
+```
 ## Credits
 
 [Fresh food image](https://www.freepik.com/free-vector/restaurant-mural-wallpaper_10373272.htm#query=food%20graphic&position=4&from_view=keyword&track=ais)
@@ -65,3 +122,9 @@ Website Banner
 [Place Search requests](https://developers.google.com/maps/documentation/javascript/places#place_search_requests)
 
 
+## Authors
+
+Alonso Ampuero [Github](https://github.com/FenriRagni)
+Minami Mukai [Github](https://github.com/mitsukaichi)
+Nathan Geronimo [Github](https://github.com/nathangero)
+Thai Nghiem [Github](https://github.com/Truecoding4life)
