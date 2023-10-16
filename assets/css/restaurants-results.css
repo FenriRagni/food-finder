@@ -7,22 +7,6 @@ body {
     margin: 6% 4% 0px 0px;
 }
 
-.review-author {
-    background-color: rgba(31, 22, 22, 0.906);
-    color:aqua;
-    border-radius: 20px 0px 0px 20px;
-    text-align: center;
-    min-width: 12%;
-    max-width: 140px;
-}
-
-.review-text {
-    background-color: aqua;
-    color: rgba(31, 22, 22, 0.906);;
-    border-radius: 0px 20px 20px 0px;
-    min-width: 90%;
-}
-
 .details-icon {
     font-size: 24px;
     margin-right: 1%;

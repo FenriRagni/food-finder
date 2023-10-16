@@ -53,19 +53,25 @@ var request = {
         var reviews = $("#reviews");
         for(let x = 0; x < place.reviews.length; x++){
             let reviewBox = $("<div>");
-            reviewBox.addClass("columns reviews is-medium is-justify-content-center");
+            reviewBox.addClass("is-flex review-row");
+
             let authorBox = $("<div>");
-            authorBox.addClass("card review-author is-2 my-2 p-2");
+            authorBox.addClass("card my-2 p-2 review-author");
+            authorBox.addClass("");
             authorBox.text(place.reviews[x].author_name);
+            
             let authorImg = $("<img>");
             authorImg.attr("src", place.reviews[x].profile_photo_url);
             authorBox.append(authorImg);
+
             let authorRating = $('<p>');
             authorRating.text(place.reviews[x].rating + "/5");
             authorBox.append(authorRating);
+
             let authorText = $('<div>');
             authorText.addClass("p-2 my-2 review-text")
             authorText.html("<p>" + place.reviews[x].text + "</p>");
+
             reviewBox.append(authorBox, authorText);
             reviewBox.addClass("my-2");
             reviews.append(reviewBox);
