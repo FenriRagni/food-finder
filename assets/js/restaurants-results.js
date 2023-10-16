@@ -35,7 +35,7 @@ function displayResults(results) {
 
     let cardContainer = $("#container-cards");
     let cardDiv = $("<div>");
-    cardDiv.addClass("columns p-3 mb-0");
+    cardDiv.addClass("columns p-2 m-0");
 
     for (let i = 0; i < results.length; i++) {
         let info = results[i];
