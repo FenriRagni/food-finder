@@ -13,6 +13,9 @@ body {
 }
 
 form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 75%;
 }
 
@@ -29,6 +32,16 @@ a:hover {
     font-weight: 700;
     font-size: 60px;
     color: #c3c3c3;
+}
+
+.search-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(36, 33, 32, 0.744);
+    width: 90%;
+    border-radius: 10px;
 }
 
 .result-display {
@@ -56,15 +69,6 @@ a:hover {
     margin-top: 50px;
 }
 
-#search-section {
-    max-width:1200px;
-    background-color: rgba(36, 33, 32, 0.744);
-    height: 70px;
-    margin-bottom: 20px;
-    margin: auto;
-    border-radius: 10px;
-}
-
 #welcome-photo {
     border-radius: 30px;
     box-shadow: 4px 8px 30px rgb(30, 29, 29);
@@ -87,4 +91,15 @@ a:hover {
 #application input {
     padding: 13px;
     width: 443px;
+}
+
+@media screen and (min-width: 769px) {
+    form {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .search-section {
+        flex-direction: row;
+    }
 }
