@@ -25,7 +25,7 @@ function getSearchResults(recipeId){
             var health = temptData.hits[0].recipe.healthLabels;
             var ingredient = temptData.hits[0].recipe.ingredientLines;
             var recipeLIink = temptData.hits[0].recipe.url;
-            data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink);
+            dataForRecipe(label, imageUrl, cuisine, health, calories, recipeLIink);
             for( i=0; i<ingredient.length;i++){
                 $('#shortDescription').append('<p>' + ingredient[i] + '</p>');
             }
@@ -33,7 +33,7 @@ function getSearchResults(recipeId){
         );
 };
 
-function data4Recipe(label, imageUrl, cuisine, health, calories, recipeLIink){
+function dataForRecipe(label, imageUrl, cuisine, health, calories, recipeLIink){
     var title = $('#title');
     var image = $('#image');
     var name = $('#name');
