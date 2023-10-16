@@ -94,11 +94,10 @@ function RecipecardGenerator(title, subtitle, imagehtml, recipeId, mealTypeData,
 
     mediaContent.append(cardTitle, cardSub, recipeBox);
     cardContent.append(mediaContent);
-    resultCard.append(cardContent);
     
     figure.append($("<img>").attr("src", imagehtml));
     cardImage.append(figure);
-    resultCard.append(cardImage);
+    resultCard.append(cardImage, cardContent);
     resultColumn.append(resultCard);
 
     $(".recipe-display").append(resultColumn);
