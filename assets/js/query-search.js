@@ -81,11 +81,6 @@ function fetchGooglePlaces(keyword) {
         let stringifyResults = JSON.stringify(updatedResults);
         // console.log(stringifyResults)
         localStorage.setItem(SEARCH_RESULTS, stringifyResults);
-
-        // This is only here for testing purposes. This will occur when the "See more restaurants" button is clicked
-        // window.location.href = "./see-more-restaurants.html"
-        // queryItem.val(""); // Clear the input fields after going to the next page
-        // queryLocation.val("");
     });
 }
 
