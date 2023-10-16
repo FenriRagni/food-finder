@@ -53,6 +53,9 @@ function showRecipeResults(searchQuery) {
             if (data.hits.length > 0) {
                 $(".recipe-display").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "./see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
             }
+
+            // Scroll user to results
+            document.getElementById("results-columns").scrollIntoView({ behavior: "smooth" });
         });
     }
     // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
