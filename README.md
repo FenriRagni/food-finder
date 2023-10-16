@@ -28,8 +28,8 @@ Website Home Page
 
 <img src="./assets/images/Screenshot%202023-10-13%20at%2011.05.34%20AM.png" style="width: 500px; height: auto" alt="website home page">
 
-<br>Website Demo: ![website-demo](./assets/images/website-demo.gif) <br> <br>
-See more demo: ![see-more-demo](./assets/images/see-more-demo.gif) <br><br>
+<br>Website Demo: <br> ![website-demo](./assets/images/website-demo.gif) <br> <br>
+See more demo: <br> ![see-more-demo](./assets/images/see-more-demo.gif) <br><br>
 Size change demo: <br>![size-change-demo](./assets/images/size-change-mobile.gif)
 
 Website Banner
