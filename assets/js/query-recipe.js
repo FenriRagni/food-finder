@@ -14,8 +14,8 @@ function searchClick(event) {
     if ((queryItem.val().length === 0) || (queryLocation.val().length === 0)){
         openModal();
     } else {
-        $(".recipeDisplay").children().remove();
-        $(".restaurantDisplay").children().remove();
+        $(".recipe-display").children().remove();
+        $(".restaurant-display").children().remove();
         showRecipeResults(queryItem.val());
     }
 }
@@ -51,14 +51,14 @@ function showRecipeResults(searchQuery) {
                 RecipecardGenerator(recipeTitle, crusinetype, imageSouce,recipeId, mealTypeData, calorieData);
             }
             if (data.hits.length > 0) {
-                $(".recipeDisplay").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "./see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
+                $(".recipe-display").append('<div> <p class = "is-size-2 mb-3 has-text-centered"><a href = "./see-more-recipes.html?q=' + searchQuery +'">See more recipes <p></div>');
             }
         });
     }
     // THIS FUNCTION WILL GENERATE ELEMENT ON THE PAGE WE JUST NEED TO NEST THE INFO WE NEED INSIDE
     // THIS FUNCTION WILL TAKE IN TITLE, CARD TEXT CONTENT AND IMAGE URL
     function RecipecardGenerator(title, subtitle, imagehtml, recipeId, mealTypeData, calorieData) {
-        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 result-display");
         var resultCard = $("<div>").addClass("card");
         var cardImage = $("<div>").addClass("card-image");
         var figure = $("<figure>").addClass("image is-4by3");
@@ -68,7 +68,7 @@ function showRecipeResults(searchQuery) {
         var cardSub = $("<h2>").addClass("subtitle is-6");
         var recipeBox = $("<ul>");
         resultColumn.append(resultCard);
-        $(".recipeDisplay").append(resultColumn);
+        $(".recipe-display").append(resultColumn);
         resultCard.append(cardImage);
         cardImage.append(figure);
         resultCard.append(cardContent);

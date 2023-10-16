@@ -128,7 +128,7 @@ function updateResults(results) {
  * @param {JSON} results 
  */
 function displayResults(results, searchOptions) {
-    var restaurantContainer = $(".restaurantDisplay");
+    var restaurantContainer = $(".restaurant-display");
     restaurantContainer.html("");
 
     // Only loop through a certain amount of times
@@ -142,7 +142,7 @@ function displayResults(results, searchOptions) {
         let photoUrl = info.photo_url;
 
 
-        var resultColumn = $("<div>").addClass("column is-12 resultDisplay");
+        var resultColumn = $("<div>").addClass("column is-12 result-display");
         var resultCard = $("<div>").addClass("card");
         
         var cardImage = $("<div>").addClass("card-image");
