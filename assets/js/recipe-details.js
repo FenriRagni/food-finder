@@ -11,6 +11,7 @@ function getSearchQuery() {
 function getSearchResults(recipeId){
     var requestUrl = "https://api.edamam.com/api/recipes/v2/by-uri?type=public&uri=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_" + recipeId + "&app_id=f77c7e0e&app_key=43e8d41a5b2ed56c8d6d782c1d900e3e";
     var temptData;
+
     fetch(requestUrl)
         .then(function (response) {
             return response.json();
@@ -35,21 +36,28 @@ function getSearchResults(recipeId){
 
 function dataForRecipe(label, imageUrl, cuisine, health, calories, recipeLIink){
     var title = $('#title');
-    var image = $('#image');
-    var name = $('#name');
-    var shortDescription = $('#shortDescription');
-    var longDescription=$('#longDescription');
-    var link = $("#link");
     title.children().text(label);
-    name.text(label);
-    image.attr('src',imageUrl);
-    shortDescription.append("<p>" + cuisine +"</p>");
-    longDescription.append("<p>" + health +"</p>");
-    shortDescription.append("<p>"+ " Total "+ calories + " Calories."+"</p>");
-    link.html('<a href ="' + recipeLIink + '">See more details about this recipe</a>')
+
     let icon = createBookmark(label, queryResult, "recipe");
     icon.addClass("details-icon");
     title.append(icon);
+
+    var image = $('#image');
+    image.attr('src',imageUrl);
+
+    var name = $('#name');
+    name.text(label);
+
+    var shortDescription = $('#shortDescription');
+    shortDescription.append("<p>" + cuisine +"</p>");
+    shortDescription.append("<p>"+ " Total "+ calories + " Calories."+"</p>");
+
+    var longDescription=$('#longDescription');
+    longDescription.append("<p>" + health +"</p>");
+
+    var link = $("#link");
+    link.html('<a href ="' + recipeLIink + '">See more details about this recipe</a>')
 };
+
 loadBookmarks();
 getSearchQuery();
