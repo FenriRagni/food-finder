@@ -8,11 +8,8 @@
 
 body {
     background-color: rgba(31, 22, 22, 0.906);
-    font-family: 'Roboto', sans-serif;
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    min-height: 1500px;
+    height: auto !important;
+    min-height: 100vh;
 }
 
 form {
