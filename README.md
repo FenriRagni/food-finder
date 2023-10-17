@@ -44,6 +44,15 @@ Website Banner
 * Website opening on loading/closing the site.
 * Location storage to bookmark recipes/restaurants
 
+## Learning Objectives
+
+Some of the things we wanted to achieve through this project:
+
+* Getting a deeper understanding of API calls and how to handle them
+* Dynamically creating elements using the response from API calls
+* Learn about different CSS frameworks outside of Bootstrap
+* Getting a better understanding of how the git workflow functions with multiple users and resolving issues that arise
+* Developing skills in communicating with others on a collaborative project, rather than using the driver/navigator role exclusively
 
 ## Code Snippet
 
